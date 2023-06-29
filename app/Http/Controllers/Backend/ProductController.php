@@ -12,22 +12,27 @@ use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\ProductImageGallery;
 use App\Models\ProductVariant;
+use App\Models\StockLimit;
 use App\Models\SubCategory;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Str;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
     use ImageUploadTrait;
+
+    // Definir el valor predeterminado para notificar la cantidad
+    const DEFAULT_NOTIFY_QTY = 20;
+
     /**
      * Display a listing of the resource.
      */
     public function index(ProductDataTable $dataTable)
     {
-        return $dataTable->render('admin.product.index');
+        $products = Product::all(); // Obtener todos los productos
+        return $dataTable->render('admin.product.index', compact('products'));
     }
 
     /**
@@ -39,8 +44,6 @@ class ProductController extends Controller
         $brands = Brand::all();
         return view('admin.product.create', compact('categories', 'brands'));
     }
-
-    
 
     /**
      * Store a newly created resource in storage.
@@ -54,11 +57,12 @@ class ProductController extends Controller
             'brand' => ['required'],
             'price' => ['required'],
             'qty' => ['required'],
-            'short_description' => ['max: 600'],
-            'long_description' => ['nullable'],
-            'seo_title' => ['nullable','max:200'],
-            'seo_description' => ['nullable','max:250'],
-            'status' => ['required']
+            'short_description' => ['required', 'max: 600'],
+            'long_description' => ['required'],
+            'seo_title' => ['nullable', 'max:200'],
+            'seo_description' => ['nullable', 'max:250'],
+            'status' => ['required'],
+            'notify_quantity' => ['nullable'], // Agregado: Validar el campo notify_quantity
         ]);
 
         /** Handle the image upload */
@@ -87,60 +91,62 @@ class ProductController extends Controller
         $product->is_approved = 1;
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
+        $product->notify_quantity = $request->notify_quantity; // Nuevo: Asignar notify_quantity al producto
         $product->save();
 
         toastr('Created Successfully!', 'success');
 
+        // Stock Limit
+        $stockLimit = new StockLimit();
+        $stockLimit->product_id = $product->id;
+        $stockLimit->notify_quantity = $request->notify_quantity ?? self::DEFAULT_NOTIFY_QTY; // Utiliza notify_quantity si está presente, de lo contrario utiliza el valor predeterminado
+        $stockLimit->save();
+
+        // Verificar el límite de stock después de guardar $stockLimit
+        if ($product->qty <= $stockLimit->notify_quantity) {
+            // Realiza las acciones necesarias para procesar el stock
+            // Ejemplo: enviar un correo electrónico al administrador
+            $message = 'Product stock reached the limit: ' . $stockLimit->notify_quantity;
+            mail('admin@example.com', 'Stock Limit Reached', $message);
+        }
+
         return redirect()->route('admin.products.index');
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
-        $subCategories = SubCategory::where('category_id', $product->category_id)->get();
-        $childCategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
         $categories = Category::all();
         $brands = Brand::all();
+        $subCategories = SubCategory::all();
+        $childCategories = ChildCategory::all(); // Agrega esta línea para obtener las categorías hijas
+        $product->load('stockLimit'); // Cargar la relación stockLimit
+
+
         return view('admin.product.edit', compact('product', 'categories', 'brands', 'subCategories', 'childCategories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
         $request->validate([
-            'image' => ['nullable', 'image', 'max:3000'],
             'name' => ['required', 'max:200'],
             'category' => ['required'],
             'brand' => ['required'],
             'price' => ['required'],
             'qty' => ['required'],
-            'short_description' => ['required', 'max: 600'],
+            'short_description' => ['required', 'max:600'],
             'long_description' => ['required'],
-            'seo_title' => ['nullable','max:200'],
-            'seo_description' => ['nullable','max:250'],
-            'status' => ['required']
+            'seo_title' => ['nullable', 'max:200'],
+            'seo_description' => ['nullable', 'max:250'],
+            'status' => ['required'],
+            'notify_quantity' => ['required'], // Agregado: Validar el campo notify_quantity
         ]);
 
-        $product = Product::findOrFail($id);
-
-        /** Handle the image upload */
-        $imagePath = $this->updateImage($request, 'image', 'uploads', $product->thumb_image);
-
-        $product->thumb_image = empty(!$imagePath) ? $imagePath : $product->thumb_image;
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
         $product->category_id = $request->category;
@@ -160,92 +166,62 @@ class ProductController extends Controller
         $product->status = $request->status;
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
+        $product->notify_quantity = $request->notify_quantity; // Nuevo: Asignar notify_quantity al producto
         $product->save();
+
+        // Actualizar el límite de stock
+        $stockLimit = $product->stockLimit;
+
+        if (!$stockLimit) {
+            // Si no existe un límite de stock, crea uno nuevo
+            $stockLimit = new StockLimit();
+            $stockLimit->product_id = $product->id;
+        }
+
+        $stockLimit->notify_quantity = $request->notify_quantity;
+        $stockLimit->save();
 
         toastr('Updated Successfully!', 'success');
 
-        return redirect()->route('admin.products.index');
+        // Verificar el límite de stock después de guardar $stockLimit
+        if ($product->qty <= $stockLimit->notify_quantity) {
+            // Realiza las acciones necesarias para procesar el stock
+            // Ejemplo: enviar un correo electrónico al administrador
+            $message = 'Product stock reached the limit: ' . $stockLimit->notify_quantity;
+            mail('admin@example.com', 'Stock Limit Reached', $message);
+        }
 
+        return redirect()->route('admin.products.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        $product = Product::findOrFail($id);
-        if(OrderProduct::where('product_id',$product->id)->count() > 0){
-            return response(['status' => 'error', 'message' => 'This product have orders can\'t delete it.']);
-        }
-
-        /** Delte the main product image */
-        $this->deleteImage($product->thumb_image);
-
-        /** Delete product gallery images */
-        $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
-        foreach($galleryImages as $image){
-            $this->deleteImage($image->image);
-            $image->delete();
-        }
-
-        /** Delete product variants if exist */
-        $variants = ProductVariant::where('product_id', $product->id)->get();
-
-        foreach($variants as $variant){
-            $variant->productVariantItems()->delete();
-            $variant->delete();
-        }
-
         $product->delete();
 
-        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        toastr('Deleted Successfully!', 'success');
+
+        return response()->json(['status' => 'success']);
     }
-
-    public function changeStatus(Request $request)
-    {
-        $product = Product::findOrFail($request->id);
-        $product->status = $request->status == 'true' ? 1 : 0;
-        $product->save();
-
-        return response(['message' => 'Status has been updated!']);
-    }
-
-    /**
-     * Get all product sub categores
-     */
-
-    public function getSubCategories(Request $request)
-    {
-        $subCategories = SubCategory::where('category_id', $request->id)->get();
-
-        return $subCategories;
-    }
-
-    public function getChildCategories(Request $request)
-    {
-        $childCategories = ChildCategory::where('sub_category_id', $request->id)->get();
-
-        return $childCategories;
-    }
-
 
     public function quickLoad(Request $request)
     {
         $productsData = $request->input('products');
-    
+
         foreach ($productsData as $productData) {
             $product = new Product();
             $product->name = $productData['name'];
             // Agrega los demás campos del producto según corresponda
-    
+
             // Guarda el producto en la base de datos
             $product->save();
         }
-    
+
         // Mostrar un mensaje o redirigir a una página de éxito
         toastr('Productos creados satisfactoriamente', 'success');
-    
+
         return redirect()->route('admin.quickLoadForm');
     }
-
 }

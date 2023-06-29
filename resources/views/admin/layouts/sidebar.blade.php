@@ -263,6 +263,27 @@
                         </ul>
                     </li>
 
+                    <li class="menu-header">Stock</li>
+<li class="dropdown {{ setActive(['admin.stock.*']) }}">
+    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+        <i class="fas fa-list"></i>
+        <span>Stock</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="{{ setActive(['admin.stock.index']) }}">
+            <a class="nav-link" href="{{ route('admin.stock.index') }}">Dashboard</a>
+        </li>
+    </ul>
+</li>
+
+<li class="menu-header">Marketing</li>
+<li class="{{ setActive(['admin.loyalty-program.*']) }}">
+    <a href="{{ route('admin.loyalty-program.loyalty') }}" class="nav-link">
+        <i class="fas fa-list"></i>
+        <span>Puntos</span>
+    </a>
+</li>
+
                     <li class="menu-header">Punto de venta</li>
 
                     <li

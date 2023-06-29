@@ -48,6 +48,8 @@ use App\Http\Controllers\Movimientos\MovimientosController;
 use App\Http\Controllers\Movimientos\UsersController;
 use App\Http\Controllers\POS\PosController;
 use App\Http\Controllers\Backend\BulkProductController;
+use App\Http\Controllers\Backend\LoyaltyProgramController;
+use App\Http\Controllers\StockController;
 
 
 use App\Models\BlogCategory;
@@ -91,6 +93,7 @@ Route::get('product/get-subcategories', [ProductController::class, 'getSubCatego
 Route::get('product/get-child-categories', [ProductController::class, 'getChildCategories'])->name('product.get-child-categories');
 Route::put('product/change-status', [ProductController::class, 'changeStatus'])->name('product.change-status');
 Route::resource('products', ProductController::class);
+
 
 
 /** Bulk Product Upload */
@@ -299,6 +302,19 @@ Route::post('/admin/pos/eliminar-producto', [PosController::class, 'eliminarProd
 /** Vaciar productos de la orden POS */
 Route::post('/admin/pos/vaciar-productos', [PosController::class, 'vaciarProductos'])->name('admin.pos.vaciar-productos');
 Route::get('/pos/search', [PosController::class, 'searchProduct'])->name('admin.pos.searchProduct');
+
+
+
+
+
+/** GASTI */
+
+
+Route::get('admin/loyalty-program', [LoyaltyProgramController::class, 'loyalty'])
+    ->name('admin.loyalty-program.loyalty');
+
+    // Ruta para la vista de stock
+Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock.index');
 
 
 
