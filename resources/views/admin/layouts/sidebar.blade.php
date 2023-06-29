@@ -7,13 +7,14 @@
             <a href="">||</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">Escritorio</li>
+            
+            <li class="menu-header">Tienda Online</li>
+
             <li class="dropdown active">
                 <a href="{{ route('admin.dashbaord') }}" class="nav-link"><i
-                        class="fas fa-fire"></i><span>Escritorio</span></a>
+                        class="fas fa-fire"></i><span>Dashboard</span></a>
 
             </li>
-            <li class="menu-header">Tienda Online</li>
 
             <li
                 class="dropdown {{ setActive(['admin.category.*', 'admin.sub-category.*', 'admin.child-category.*']) }}">
@@ -54,6 +55,9 @@
                         'admin.reviews.*',
                     ]) }}">
                     <a class="nav-link" href="{{ route('admin.products.index') }}">Productos</a></li>
+                    <li class="{{ setActive(['admin.product.quickLoadForm']) }}">
+                        <a class="nav-link" href="{{ route('admin.product.quickLoadForm') }}">Carga Rápida</a>
+                    </li>                    
                 <li class="{{ setActive(['admin.seller-products.*']) }}"><a class="nav-link"
                         href="{{ route('admin.seller-products.index') }}">Productos de vendedores</a></li>
                 <li class="{{ setActive(['admin.seller-pending-products.*']) }}"><a class="nav-link"
@@ -150,26 +154,7 @@
                 </ul>
             </li>
 
-            <li class="menu-header">Administrador de Pagos</li>
-
-            <li
-                class="dropdown {{ setActive(['admin.movimientos.*']) }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-list"></i>
-                    <span>Movimientos</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ setActive(['admin.movimientos.index']) }}"><a class="nav-link"
-                        href="{{ route('admin.movimientos.index') }}">Dashboard</a></li>
-                    <li class="{{ setActive(['admin.movimientos.transactions']) }}"><a class="nav-link"
-                        href="{{ route('admin.movimientos.transactions') }}">Todos los movimientos</a></li>
-                    <li class="{{ setActive(['admin.movimientos.incomes']) }}"><a class="nav-link"
-                            href="{{ route('admin.movimientos.incomes') }}">Ingresos</a></li>
-                    <li class="{{ setActive(['admin.movimientos.expenses']) }}"><a class="nav-link"
-                            href="{{ route('admin.movimientos.expenses') }}">Egresos</a></li>
-                    <li class="{{ setActive(['admin.movimientos.users']) }}"><a class="nav-link"
-                        href="{{ route('admin.movimientos.users') }}">Usuarios</a></li>
-
-                </ul>
-            </li>
+            
 
             {{-- <li><a class="nav-link {{ setActive(['admin.advertisement.*']) }}"
                 href="{{ route('admin.advertisement.index') }}"><i class="fas fa-ad"></i>
@@ -189,7 +174,7 @@
                 </ul>
             </li> --}}
 
-            <li class="menu-header">Configuración</li>
+            <li class="menu-header"></li>
 
 
             <li
@@ -249,6 +234,46 @@
 
             <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="fas fa-wrench"></i>
                     <span>Configuración</span></a></li>
+
+                    <li class="menu-header">Administrador de Pagos</li>
+
+                    <li
+                        class="dropdown {{ setActive(['admin.movimientos.*']) }}">
+                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-list"></i>
+                            <span>Movimientos</span></a>
+                        <ul class="dropdown-menu">
+                            <li class="{{ setActive(['admin.movimientos.index']) }}"><a class="nav-link"
+                                href="{{ route('admin.movimientos.index') }}">Dashboard</a></li>
+                            <li class="{{ setActive(['admin.movimientos.transactions']) }}"><a class="nav-link"
+                                href="{{ route('admin.movimientos.transactions') }}">Todos los movimientos</a></li>
+                            <li class="{{ setActive(['admin.movimientos.incomes']) }}"><a class="nav-link"
+                                    href="{{ route('admin.movimientos.incomes') }}">Ingresos</a></li>
+                            <li class="{{ setActive(['admin.movimientos.expenses']) }}"><a class="nav-link"
+                                    href="{{ route('admin.movimientos.expenses') }}">Egresos</a></li>        
+                        </ul>
+                    </li>
+
+                    <li
+                        class="dropdown {{ setActive(['admin.movimientos.users']) }}">
+                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-list"></i>
+                            <span>Usuarios</span></a>
+                        <ul class="dropdown-menu"> 
+                            <li class="{{ setActive(['admin.movimientos.users']) }}"><a class="nav-link"
+                            href="{{ route('admin.movimientos.users') }}">Todos los usuarios</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-header">Punto de venta</li>
+
+                    <li
+                        class="dropdown {{ setActive(['admin.pos.*']) }}">
+                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-list"></i>
+                            <span>POS</span></a>
+                        <ul class="dropdown-menu"> 
+                            <li class="{{ setActive(['admin.pos.dashboard']) }}"><a class="nav-link"
+                            href="{{ route('admin.pos.dashboard') }}">Point of Sale</a></li>
+                        </ul>
+                    </li>
 
         </ul>
 

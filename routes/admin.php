@@ -46,6 +46,10 @@ use App\Http\Controllers\Backend\VendorListController;
 use App\Http\Controllers\Backend\VendorRequestController;
 use App\Http\Controllers\Movimientos\MovimientosController;
 use App\Http\Controllers\Movimientos\UsersController;
+use App\Http\Controllers\POS\PosController;
+use App\Http\Controllers\Backend\BulkProductController;
+
+
 use App\Models\BlogCategory;
 use App\Models\FooterInfo;
 use App\Models\VendorCondition;
@@ -87,6 +91,16 @@ Route::get('product/get-subcategories', [ProductController::class, 'getSubCatego
 Route::get('product/get-child-categories', [ProductController::class, 'getChildCategories'])->name('product.get-child-categories');
 Route::put('product/change-status', [ProductController::class, 'changeStatus'])->name('product.change-status');
 Route::resource('products', ProductController::class);
+
+
+/** Bulk Product Upload */
+Route::get('/admin/product/quick-load', [ProductController::class, 'create'])->name('admin.product.quickLoadForm');
+Route::post('/admin/product/quick-load', [ProductController::class, 'store'])->name('admin.product.quickLoadForm');
+Route::post('admin/products/mass-store', [ProductController::class, 'massStore'])->name('admin.products.mass-store');
+
+
+
+
 
 /** Products image gallery route */
 Route::resource('products-image-gallery', ProductImageGalleryController::class);
@@ -259,12 +273,45 @@ Route::get('/movimientos/expenses', [MovimientosController::class, 'expenses'])-
 /** Agregar */
 Route::post('/movimientos/agregar/{accion}', [MovimientosController::class, 'agregar'])->name('movimientos.agregar');
 
+/** Ver Movimiento */
+Route::get('/movimientos/{id}', [MovimientosController::class, 'ver'])->name('movimientos.ver');
 
+/** Editar Movimiento */
+Route::get('/movimientos/{id}/editar', [MovimientosController::class, 'editar'])->name('movimientos.editar');
+Route::put('/movimientos/{id}', [MovimientosController::class, 'actualizar'])->name('movimientos.actualizar');
+
+/** Eliminar Movimiento */
+Route::delete('/movimientos/{id}', [MovimientosController::class, 'eliminar'])->name('movimientos.eliminar');
 
 
 /** Usuarios Facturación Routes */
-Route::get('/movimientos/users', [UsersController::class, 'users'])->name('admin.movimientos.users');
+Route::get('/usuarios/movimientos', [UsersController::class, 'users'])->name('admin.movimientos.users');
 Route::post('/usuarios/agregar', [UsersController::class, 'agregarUsuario'])->name('users.agregarUsuario');
+
+
+/** POS */
+Route::get('/pos/dashboard', [PosController::class, 'dashboard'])->name('pos.dashboard');
+
+/** Agregar producto a la orden POS */
+Route::post('/pos/agregar-producto', [PosController::class, 'agregarProducto'])->name('pos.agregar-producto');
+/** Eliminar producto de la orden POS */
+Route::post('/admin/pos/eliminar-producto', [PosController::class, 'eliminarProducto'])->name('admin.pos.eliminar-producto');
+/** Vaciar productos de la orden POS */
+Route::post('/admin/pos/vaciar-productos', [PosController::class, 'vaciarProductos'])->name('admin.pos.vaciar-productos');
+Route::get('/pos/search', [PosController::class, 'searchProduct'])->name('admin.pos.searchProduct');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

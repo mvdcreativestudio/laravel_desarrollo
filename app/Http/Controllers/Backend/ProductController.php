@@ -16,6 +16,7 @@ use App\Models\SubCategory;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Str;
 
 class ProductController extends Controller
@@ -39,6 +40,8 @@ class ProductController extends Controller
         return view('admin.product.create', compact('categories', 'brands'));
     }
 
+    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -51,8 +54,8 @@ class ProductController extends Controller
             'brand' => ['required'],
             'price' => ['required'],
             'qty' => ['required'],
-            'short_description' => ['required', 'max: 600'],
-            'long_description' => ['required'],
+            'short_description' => ['max: 600'],
+            'long_description' => ['nullable'],
             'seo_title' => ['nullable','max:200'],
             'seo_description' => ['nullable','max:250'],
             'status' => ['required']
@@ -223,6 +226,26 @@ class ProductController extends Controller
         $childCategories = ChildCategory::where('sub_category_id', $request->id)->get();
 
         return $childCategories;
+    }
+
+
+    public function quickLoad(Request $request)
+    {
+        $productsData = $request->input('products');
+    
+        foreach ($productsData as $productData) {
+            $product = new Product();
+            $product->name = $productData['name'];
+            // Agrega los demás campos del producto según corresponda
+    
+            // Guarda el producto en la base de datos
+            $product->save();
+        }
+    
+        // Mostrar un mensaje o redirigir a una página de éxito
+        toastr('Productos creados satisfactoriamente', 'success');
+    
+        return redirect()->route('admin.quickLoadForm');
     }
 
 }

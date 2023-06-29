@@ -73,12 +73,13 @@
                         <td>{{ ucwords($usuario->direccion) }}</td>
                         <td>{{ $usuario->telefono }}</td>
                         <td>{{ $usuario->email }}</td>
-                        <td> {{ $usuario->tipo_usuario}} </td>
-                        <td> {{ ucwords($usuario->status)}} </td>
+                        <td>{{ $usuario->tipo_usuario }}</td>
+                        <td class="@if($usuario->status == 'activo') text-success font-weight-bold @else text-danger font-weight-bold @endif">{{ ucwords($usuario->status) }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        
 
         
     </div>

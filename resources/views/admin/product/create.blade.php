@@ -4,17 +4,38 @@
       <!-- Main Content -->
         <section class="section">
           <div class="section-header">
-            <h1>Product</h1>
+            <h1>Producto</h1>
 
           </div>
 
           <div class="section-body">
 
             <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Cargar Productos en Masa</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('admin.products.mass-store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label>Archivo CSV</label>
+                                    <input type="file" class="form-control" name="csv_file">
+                                    <small class="text-muted">Selecciona un archivo CSV que contenga los datos de los productos a cargar en masa.</small>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cargar Productos en Masa</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Create Product</h4>
+                    <h4>Crear Producto</h4>
                   </div>
                   <div class="card-body">
                     <form action="{{route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
@@ -25,16 +46,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>Nombre</label>
                             <input type="text" class="form-control" name="name" value="{{old('name')}}">
                         </div>
 
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="inputState">Category</label>
+                                    <label for="inputState">Categoria</label>
                                     <select id="inputState" class="form-control main-category" name="category">
-                                      <option value="">Select</option>
+                                      <option value="">Seleccionar</option>
                                       @foreach ($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                       @endforeach
@@ -43,18 +64,18 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="inputState">Sub Category</label>
+                                    <label for="inputState">Sub Categoria</label>
                                     <select id="inputState" class="form-control sub-category" name="sub_category">
-                                        <option value="">Select</option>
+                                        <option value="">Seleccionar</option>
 
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="inputState">Child Category</label>
+                                    <label for="inputState">Categoría Hijo</label>
                                     <select id="inputState" class="form-control child-category" name="child_category">
-                                        <option value="">Select</option>
+                                        <option value="">Seleccionar</option>
                                     </select>
                                 </div>
                             </div>
@@ -62,9 +83,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="inputState">Brand</label>
+                            <label for="inputState">Marca</label>
                             <select id="inputState" class="form-control" name="brand">
-                                <option value="">Select</option>
+                                <option value="">Seleccionar</option>
                                 @foreach ($brands as $brand)
                                     <option value="{{$brand->id}}">{{$brand->name}}</option>
                                 @endforeach
@@ -77,56 +98,56 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Price</label>
+                            <label>Precio</label>
                             <input type="text" class="form-control" name="price" value="{{old('price')}}">
                         </div>
 
                         <div class="form-group">
-                            <label>Offer Price</label>
+                            <label>Oferta</label>
                             <input type="text" class="form-control" name="offer_price" value="{{old('offer_price')}}">
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Offer Start Date</label>
+                                    <label>Fecha de inicio oferta</label>
                                     <input type="text" class="form-control datepicker" name="offer_start_date" value="{{old('offer_start_date')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Offer End Date</label>
+                                    <label>Fecha de finalización oferta</label>
                                     <input type="text" class="form-control datepicker" name="offer_end_date" value="{{old('offer_end_date')}}">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Stock Quantity</label>
+                            <label>Stock</label>
                             <input type="number" min="0" class="form-control" name="qty" value="{{old('qty')}}">
                         </div>
 
                         <div class="form-group">
-                            <label>Video Link</label>
+                            <label>Video</label>
                             <input type="text" class="form-control" name="video_link" value="{{old('video_link')}}">
                         </div>
 
 
                         <div class="form-group">
-                            <label>Short Description</label>
+                            <label>Descripción Corta</label>
                             <textarea name="short_description" class="form-control"></textarea>
                         </div>
 
 
                         <div class="form-group">
-                            <label>Long Description</label>
+                            <label>Descripción Larga</label>
                             <textarea name="long_description" class="form-control summernote"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputState">Product Type</label>
+                            <label for="inputState">Tipo de Producto</label>
                             <select id="inputState" class="form-control" name="product_type">
-                                <option value="">Select</option>
+                                <option value="">Seleccionar</option>
                                 <option value="new_arrival">New Arrival</option>
                                 <option value="featured_product">Featured</option>
                                 <option value="top_product">Top Product</option>
@@ -145,13 +166,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="inputState">Status</label>
+                            <label for="inputState">Estado</label>
                             <select id="inputState" class="form-control" name="status">
-                              <option value="1">Active</option>
-                              <option value="0">Inactive</option>
+                              <option value="1">Activo</option>
+                              <option value="0">Inactivo</option>
                             </select>
                         </div>
-                        <button type="submmit" class="btn btn-primary">Create</button>
+                        <button type="submmit" class="btn btn-primary">Crear</button>
                     </form>
                   </div>
 
@@ -160,6 +181,7 @@
             </div>
 
           </div>
+          
         </section>
 @endsection
 
@@ -211,4 +233,22 @@
             })
         })
     </script>
+    <script>
+        $(document).ready(function() {
+          $('form').validate({
+            rules: {
+              csv_file: {
+                required: true,
+                extension: 'csv|txt'
+              }
+            },
+            messages: {
+              csv_file: {
+                required: 'Seleccione un archivo CSV',
+                extension: 'El archivo debe tener una extensión CSV o TXT'
+              }
+            }
+          });
+        });
+      </script>
 @endpush
