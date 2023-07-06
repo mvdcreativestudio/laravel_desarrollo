@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\ProcessProductStock' => $baseDir . '/app/Console/Commands/ProcessProductStock.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\DataTables\\AdminListDataTable' => $baseDir . '/app/DataTables/AdminListDataTable.php',
     'App\\DataTables\\AdminReviewDataTable' => $baseDir . '/app/DataTables/AdminReviewDataTable.php',
@@ -83,6 +84,7 @@ return array(
     'App\\Http\\Controllers\\Backend\\FooterInfoController' => $baseDir . '/app/Http/Controllers/Backend/FooterInfoController.php',
     'App\\Http\\Controllers\\Backend\\FooterSocialController' => $baseDir . '/app/Http/Controllers/Backend/FooterSocialController.php',
     'App\\Http\\Controllers\\Backend\\HomePageSettingController' => $baseDir . '/app/Http/Controllers/Backend/HomePageSettingController.php',
+    'App\\Http\\Controllers\\Backend\\LoyaltyProgramController' => $baseDir . '/app/Http/Controllers/Backend/LoyaltyProgramController.php',
     'App\\Http\\Controllers\\Backend\\ManageUserController' => $baseDir . '/app/Http/Controllers/Backend/ManageUserController.php',
     'App\\Http\\Controllers\\Backend\\OrderController' => $baseDir . '/app/Http/Controllers/Backend/OrderController.php',
     'App\\Http\\Controllers\\Backend\\PaymentSettingController' => $baseDir . '/app/Http/Controllers/Backend/PaymentSettingController.php',
@@ -134,8 +136,10 @@ return array(
     'App\\Http\\Controllers\\Frontend\\WishlistController' => $baseDir . '/app/Http/Controllers/Frontend/WishlistController.php',
     'App\\Http\\Controllers\\Movimientos\\MovimientosController' => $baseDir . '/app/Http/Controllers/Movimientos/MovimientosController.php',
     'App\\Http\\Controllers\\Movimientos\\UsersController' => $baseDir . '/app/Http/Controllers/Movimientos/UsersController.php',
+    'App\\Http\\Controllers\\POS\\CuponController' => $baseDir . '/app/Http/Controllers/POS/CuponController.php',
     'App\\Http\\Controllers\\POS\\PosController' => $baseDir . '/app/Http/Controllers/POS/PosController.php',
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
+    'App\\Http\\Controllers\\StockController' => $baseDir . '/app/Http/Controllers/StockController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -189,6 +193,7 @@ return array(
     'App\\Models\\RazorpaySetting' => $baseDir . '/app/Models/RazorpaySetting.php',
     'App\\Models\\ShippingRule' => $baseDir . '/app/Models/ShippingRule.php',
     'App\\Models\\Slider' => $baseDir . '/app/Models/Slider.php',
+    'App\\Models\\StockLimit' => $baseDir . '/app/Models/StockLimit.php',
     'App\\Models\\StripeSetting' => $baseDir . '/app/Models/StripeSetting.php',
     'App\\Models\\SubCategory' => $baseDir . '/app/Models/SubCategory.php',
     'App\\Models\\TermsAndCondition' => $baseDir . '/app/Models/TermsAndCondition.php',

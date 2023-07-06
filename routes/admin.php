@@ -52,6 +52,7 @@ use App\Http\Controllers\Backend\LoyaltyProgramController;
 use App\Http\Controllers\StockController;
 
 
+
 use App\Models\BlogCategory;
 use App\Models\FooterInfo;
 use App\Models\VendorCondition;
@@ -60,7 +61,7 @@ use Illuminate\Support\Facades\Route;
 
 /** Admin Routes */
 
-Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashbaord');
+Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
 /** Profile Routes */
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
@@ -262,28 +263,15 @@ Route::put('razorpay-setting/{id}', [RazorpaySettingController::class, 'update']
 Route::put('cod-setting/{id}', [CodSettingController::class, 'update'])->name('cod-setting.update');
 
 
-
 /** Movimientos Routes */
 Route::get('/movimientos', [MovimientosController::class, 'index'])->name('admin.movimientos.index');
 Route::get('/movimientos/transactions', [MovimientosController::class, 'transactions'])->name('admin.movimientos.transactions');
-
-/** Cobros */
 Route::get('/movimientos/incomes', [MovimientosController::class, 'incomes'])->name('admin.movimientos.incomes');
-
-/** Pagos */
 Route::get('/movimientos/expenses', [MovimientosController::class, 'expenses'])->name('admin.movimientos.expenses');
-
-/** Agregar */
 Route::post('/movimientos/agregar/{accion}', [MovimientosController::class, 'agregar'])->name('movimientos.agregar');
-
-/** Ver Movimiento */
 Route::get('/movimientos/{id}', [MovimientosController::class, 'ver'])->name('movimientos.ver');
-
-/** Editar Movimiento */
 Route::get('/movimientos/{id}/editar', [MovimientosController::class, 'editar'])->name('movimientos.editar');
 Route::put('/movimientos/{id}', [MovimientosController::class, 'actualizar'])->name('movimientos.actualizar');
-
-/** Eliminar Movimiento */
 Route::delete('/movimientos/{id}', [MovimientosController::class, 'eliminar'])->name('movimientos.eliminar');
 
 
@@ -293,27 +281,22 @@ Route::post('/usuarios/agregar', [UsersController::class, 'agregarUsuario'])->na
 
 
 /** POS */
-Route::get('/pos/dashboard', [PosController::class, 'dashboard'])->name('pos.dashboard');
+Route::get('/pos/caja', [PosController::class, 'caja'])->name('admin.pos.caja');
+    Route::post('/pos/agregar-producto', [PosController::class, 'agregarProducto'])->name('pos.agregar-producto');
+    Route::post('/admin/pos/eliminar-producto', [PosController::class, 'eliminarProducto'])->name('admin.pos.eliminar-producto');
+    Route::post('/admin/pos/vaciar-productos', [PosController::class, 'vaciarProductos'])->name('admin.pos.vaciar-productos');
+    Route::get('/pos/search', [PosController::class, 'searchProduct'])->name('admin.pos.searchProduct');
+    Route::post('/pos/finalizar-compra', [PosController::class, 'finalizarCompra'])->name('admin.pos.finalizar-compra');
+    Route::get('/admin/pos/confirmacion', function () {return view('admin.pos.confirmacion');})->name('admin.pos.confirmacion');
+    Route::post('/admin/pos/actualizar-cantidad', [PosController::class, 'actualizarCantidad'])->name('admin.pos.actualizar-cantidad');
 
-/** Agregar producto a la orden POS */
-Route::post('/pos/agregar-producto', [PosController::class, 'agregarProducto'])->name('pos.agregar-producto');
-/** Eliminar producto de la orden POS */
-Route::post('/admin/pos/eliminar-producto', [PosController::class, 'eliminarProducto'])->name('admin.pos.eliminar-producto');
-/** Vaciar productos de la orden POS */
-Route::post('/admin/pos/vaciar-productos', [PosController::class, 'vaciarProductos'])->name('admin.pos.vaciar-productos');
-Route::get('/pos/search', [PosController::class, 'searchProduct'])->name('admin.pos.searchProduct');
+Route::get('/pos/dashboard', [PosController::class, 'dashboard'])->name('admin.pos.dashboard');
 
-
-
-
-
-/** GASTI */
+/** Loyalty Program */
+Route::get('admin/loyalty-program', [LoyaltyProgramController::class, 'loyalty'])->name('admin.loyalty-program.loyalty');
 
 
-Route::get('admin/loyalty-program', [LoyaltyProgramController::class, 'loyalty'])
-    ->name('admin.loyalty-program.loyalty');
-
-    // Ruta para la vista de stock
+/** Stock */
 Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock.index');
 
 

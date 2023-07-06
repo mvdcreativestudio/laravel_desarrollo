@@ -675,6 +675,7 @@ class ComposerStaticIniteda72b77269676ab30c310f2c471c6c7
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\ProcessProductStock' => __DIR__ . '/../..' . '/app/Console/Commands/ProcessProductStock.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\DataTables\\AdminListDataTable' => __DIR__ . '/../..' . '/app/DataTables/AdminListDataTable.php',
         'App\\DataTables\\AdminReviewDataTable' => __DIR__ . '/../..' . '/app/DataTables/AdminReviewDataTable.php',
@@ -752,6 +753,7 @@ class ComposerStaticIniteda72b77269676ab30c310f2c471c6c7
         'App\\Http\\Controllers\\Backend\\FooterInfoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/FooterInfoController.php',
         'App\\Http\\Controllers\\Backend\\FooterSocialController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/FooterSocialController.php',
         'App\\Http\\Controllers\\Backend\\HomePageSettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/HomePageSettingController.php',
+        'App\\Http\\Controllers\\Backend\\LoyaltyProgramController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/LoyaltyProgramController.php',
         'App\\Http\\Controllers\\Backend\\ManageUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/ManageUserController.php',
         'App\\Http\\Controllers\\Backend\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/OrderController.php',
         'App\\Http\\Controllers\\Backend\\PaymentSettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/PaymentSettingController.php',
@@ -803,8 +805,10 @@ class ComposerStaticIniteda72b77269676ab30c310f2c471c6c7
         'App\\Http\\Controllers\\Frontend\\WishlistController' => __DIR__ . '/../..' . '/app/Http/Controllers/Frontend/WishlistController.php',
         'App\\Http\\Controllers\\Movimientos\\MovimientosController' => __DIR__ . '/../..' . '/app/Http/Controllers/Movimientos/MovimientosController.php',
         'App\\Http\\Controllers\\Movimientos\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Movimientos/UsersController.php',
+        'App\\Http\\Controllers\\POS\\CuponController' => __DIR__ . '/../..' . '/app/Http/Controllers/POS/CuponController.php',
         'App\\Http\\Controllers\\POS\\PosController' => __DIR__ . '/../..' . '/app/Http/Controllers/POS/PosController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\StockController' => __DIR__ . '/../..' . '/app/Http/Controllers/StockController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -858,6 +862,7 @@ class ComposerStaticIniteda72b77269676ab30c310f2c471c6c7
         'App\\Models\\RazorpaySetting' => __DIR__ . '/../..' . '/app/Models/RazorpaySetting.php',
         'App\\Models\\ShippingRule' => __DIR__ . '/../..' . '/app/Models/ShippingRule.php',
         'App\\Models\\Slider' => __DIR__ . '/../..' . '/app/Models/Slider.php',
+        'App\\Models\\StockLimit' => __DIR__ . '/../..' . '/app/Models/StockLimit.php',
         'App\\Models\\StripeSetting' => __DIR__ . '/../..' . '/app/Models/StripeSetting.php',
         'App\\Models\\SubCategory' => __DIR__ . '/../..' . '/app/Models/SubCategory.php',
         'App\\Models\\TermsAndCondition' => __DIR__ . '/../..' . '/app/Models/TermsAndCondition.php',

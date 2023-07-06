@@ -39,33 +39,33 @@ class OrderDataTable extends DataTable
             })
             ->addColumn('payment_status', function($query){
                 if($query->payment_status === 1){
-                    return "<span class='badge bg-success'>complete</span>";
+                    return "<span class='badge bg-success'>Completado</span>";
                 }else {
-                    return "<span class='badge bg-warning'>pending</span>";
+                    return "<span class='badge bg-warning'>Pendiente</span>";
                 }
             })
             ->addColumn('order_status', function($query){
                 switch ($query->order_status) {
                     case 'pending':
-                        return "<span class='badge bg-warning'>pending</span>";
+                        return "<span class='badge bg-warning'>Pendiente</span>";
                         break;
                     case 'processed_and_ready_to_ship':
-                        return "<span class='badge bg-info'>processed</span>";
+                        return "<span class='badge bg-info'>Procesado</span>";
                         break;
                     case 'dropped_off':
-                        return "<span class='badge bg-info'>dropped off</span>";
+                        return "<span class='badge bg-info'>Suspendido</span>";
                         break;
                     case 'shipped':
-                        return "<span class='badge bg-info'>shipped</span>";
+                        return "<span class='badge bg-info'>Enviado</span>";
                         break;
                     case 'out_for_delivery':
-                        return "<span class='badge bg-primary'>out for delivery</span>";
+                        return "<span class='badge bg-primary'>Enviado</span>";
                         break;
                     case 'delivered':
-                        return "<span class='badge bg-success'>delivered</span>";
+                        return "<span class='badge bg-success'>Entregado</span>";
                         break;
                     case 'canceled':
-                        return "<span class='badge bg-danger'>canceled</span>";
+                        return "<span class='badge bg-danger'>Cancelado</span>";
                         break;
                     default:
                         # code...
@@ -115,18 +115,18 @@ class OrderDataTable extends DataTable
         return [
 
             Column::make('id'),
-            Column::make('invocie_id'),
-            Column::make('customer'),
-            Column::make('date'),
-            Column::make('product_qty'),
-            Column::make('amount'),
-            Column::make('order_status'),
-            Column::make('payment_status'),
+            Column::make('invocie_id')->title('Transacción'),
+            Column::make('customer')->title('Cliente'),
+            Column::make('date')->title('Fecha'),
+            Column::make('product_qty')->title('QTY'),
+            Column::make('amount')->title('Total'),
+            Column::make('order_status')->title('Estado'),
+            Column::make('payment_status')->title('Pago'),
 
-            Column::make('payment_method'),
+            Column::make('payment_method')->title('Método de pago'),
 
 
-            Column::computed('action')
+            Column::computed('action')->title('Acciones')
             ->exportable(false)
             ->printable(false)
             ->width(200)

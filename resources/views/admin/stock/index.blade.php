@@ -6,17 +6,17 @@
     <div class="section-header d-flex justify-content-between align-items-center">
         <h1 class="mr-auto">Stock</h1>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <h1>Stock de Productos</h1>
             </div>
             <div class="col-md-6 text-right">
-                <a href="{{ route('admin.products.create') }}" class="btn btn-success">+ Nuevo Producto</a>
+                <a href="{{ route('admin.products.create') }}" class="btn btn-primary">Nuevo Producto</a>
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label for="order-by">Ordenar por:</label>
                 <select id="order-by" class="form-control">
                     <option value="name">A-Z (Nombre)</option>
