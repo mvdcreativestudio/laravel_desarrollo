@@ -280,6 +280,7 @@ Route::get('/movimientos/transactions/search', [MovimientosController::class, 's
 Route::get('/usuarios/movimientos', [UsersController::class, 'users'])->name('admin.movimientos.users');
 Route::post('/usuarios/agregar', [UsersController::class, 'agregarUsuario'])->name('users.agregarUsuario');
 Route::get('/usuarios/agregar-usuario', [MovimientosController::class, 'agregarUsuario'])->name('admin.movimientos.agregar-usuario');
+Route::get('/usuarios/{id}', [UsersController::class, 'verUsuario'])->name('admin.usuarios.ver');
 
 
 /** POS */

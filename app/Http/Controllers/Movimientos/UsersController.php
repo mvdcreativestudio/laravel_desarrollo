@@ -62,6 +62,14 @@ class UsersController extends Controller
     
         return redirect()->route('admin.movimientos.users')->with('success', 'Usuario creado exitosamente');
     }
+
+        // VER USUARIO
+        public function verUsuario($id)
+        {
+            $usuario = Usuario::findOrFail($id);
+            
+            return view('admin.movimientos.usuario', compact('usuario'));
+        }
     
     
     

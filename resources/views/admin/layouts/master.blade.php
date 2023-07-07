@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>Dashboard &mdash; MVD Studio</title>
+  <title>Dashboard &mdash; Sumeria</title>
   <link rel="icon" type="image/png" href="{{asset($logoSetting->favicon)}}">
 
   <!-- General CSS Files -->
@@ -78,7 +78,7 @@
 
   <!-- JS Libraies -->
   <script src="{{asset('backend/assets/modules/simple-weather/jquery.simpleWeather.min.js')}}"></script>
-  {{-- <script src="{{asset('backend/assets/modules/chart.min.js')}}"></script> --}}
+  <script src="{{asset('backend/assets/modules/chart.min.js')}}"></script>
   <script src="{{asset('backend/assets/modules/jqvmap/dist/jquery.vmap.min.js')}}"></script>
   <script src="{{asset('backend/assets/modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
   <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
