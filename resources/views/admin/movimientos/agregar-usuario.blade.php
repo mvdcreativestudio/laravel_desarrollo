@@ -4,20 +4,14 @@
 
 <section class="section">
     <div class="section-header d-flex justify-content-between align-items-center">
-        <h1 class="mr-auto">Todos los usuarios</h1>
+        <h1 class="mr-auto">Crear Usuario</h1>
         <div class="card-header-action text-right">
             <a href="{{ URL::previous() }}" class="btn btn-primary">Atrás</a>
         </div>
     </div>
     <div class="">
-        <div class="text-right mb-4">
-            <button type="button" class="btn btn-primary" id="crearUsuarioBtn">
-                Crear Usuario
-            </button>
-            
-        </div>
 
-        <div id="crearUsuarioForm" class="mb-5" style="display: none;">
+        <div id="crearUsuarioForm" class="mb-5">
             <!-- Vista del formulario -->
             <form action="{{ route('users.agregarUsuario') }}" method="POST">
 
@@ -90,60 +84,10 @@
 
                 <button type="submit" class="btn btn-primary">Agregar Usuario</button>
             </form>
-        </div>
-
-        <table class="table table-striped">
-            <thead>
-                <tr class="text-center">
-                    <th>Nombre</th>
-                    <th>Empresa</th>
-                    <th>País</th>
-                    <th>Dirección</th>
-                    <th>Teléfono</th>
-                    <th>Correo electrónico</th>
-                    <th>Tipo</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($usuarios as $usuario)
-                    <tr class="text-center">
-                        <td>{{ ucwords($usuario->nombre . ' ' . $usuario->apellido) }}</td>
-                        <td>{{ ucwords($usuario->empresa)}}</td>
-                        <td>{{ ucwords($usuario->pais)}}</td>
-                        <td>{{ ucwords($usuario->direccion) }}</td>
-                        <td>{{ $usuario->telefono }}</td>
-                        <td>{{ $usuario->email }}</td>
-                        <td>{{ $usuario->tipo_usuario }}</td>
-                        <td class="@if($usuario->status == 'activo') text-success font-weight-bold @else text-danger font-weight-bold @endif">{{ ucwords($usuario->status) }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        
+        </div>        
 
         
     </div>
 </section>
 
 @endsection
-
-@push('scripts')
-
-    <script>
-        var crearUsuarioBtn = document.getElementById('crearUsuarioBtn');
-        var crearUsuarioForm = document.getElementById('crearUsuarioForm');
-
-        crearUsuarioBtn.addEventListener('click', function() {
-            if (crearUsuarioForm.style.display === 'none') {
-                crearUsuarioForm.style.display = 'block';
-            } else {
-                crearUsuarioForm.style.display = 'none';
-            }
-        });
-    </script>
-
-@endpush
-
-
-

@@ -15,6 +15,7 @@ class UsersController extends Controller
         $proveedoresCount = $this->getProveedoresCount();
 
         return view('admin.movimientos.users', compact('usuarios', 'clienteCount', 'proveedoresCount'));
+
     }
 
     public function getClienteCount()
@@ -35,20 +36,33 @@ class UsersController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
+            'apellido' => 'required',
+            'empresa' => 'nullable',
+            'rut' => 'nullable',
+            'pais' => 'required',
+            'departamento' => 'nullable',
             'direccion' => 'required',
             'telefono' => 'required',
-            'email' => 'required|email|unique:cashflow.usuarios,email',
+            'email' => 'required|email|unique:cashflow_usuarios,email',
         ]);
-
+    
         $usuario = new Usuario();
         $usuario->nombre = $request->nombre;
-        $usuario->tipo_usuario = $request->tipo_usuario; // Asegúrate de obtener el valor correcto del campo "tipo_usuario"
+        $usuario->apellido = $request->apellido;
+        $usuario->empresa = $request->empresa;
+        $usuario->rut = $request->rut;
+        $usuario->tipo_usuario = $request->tipo_usuario;
+        $usuario->pais = $request->pais;
+        $usuario->departamento = $request->departamento;
         $usuario->direccion = $request->direccion;
         $usuario->telefono = $request->telefono;
         $usuario->email = $request->email;
-        $usuario->status = 'activo'; // Asegúrate de asignar el valor correcto para el campo "status"
+        $usuario->status = 'activo';
         $usuario->save();
-
+    
         return redirect()->route('admin.movimientos.users')->with('success', 'Usuario creado exitosamente');
     }
+    
+    
+    
 }

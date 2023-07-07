@@ -281,6 +281,8 @@
                         <ul class="dropdown-menu"> 
                             <li class="{{ setActive(['admin.movimientos.users']) }}"><a class="nav-link"
                             href="{{ route('admin.movimientos.users') }}">Todos los usuarios</a></li>
+                            <li class="{{ setActive(['admin.movimientos.agregar-usuario']) }}"><a class="nav-link"
+                                href="{{ route('admin.movimientos.agregar-usuario') }}">Agregar usuario</a></li>
                         </ul>
                     </li>
 

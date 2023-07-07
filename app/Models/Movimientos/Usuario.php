@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
-    protected $connection = 'cashflow';
-    protected $table = 'usuarios';
+    protected $table = 'cashflow_usuarios';
 
 
     public function movimientos() 
     {
         return $this->hasMany(Movimiento::class);
     }
+
 }

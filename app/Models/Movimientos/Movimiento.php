@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Movimiento extends Model
 {
     protected $fillable = ['nombre_cliente', 'concepto', 'fecha', 'monto'];
-    protected $connection = 'cashflow';
-    protected $table = 'movimientos';
+    protected $table = 'cashflow_movimientos';
 
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class);
+        return $this->belongsTo(Usuario::class, 'usuario_id');
+
     }
 }

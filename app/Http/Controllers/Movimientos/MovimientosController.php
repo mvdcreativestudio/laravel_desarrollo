@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Movimientos\Movimiento;
 use App\Models\Movimientos\Usuario;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\View;
 
 class MovimientosController extends Controller
 {
@@ -16,30 +17,44 @@ class MovimientosController extends Controller
     public function transactions()
     {
         $movimientos = Movimiento::orderBy('id', 'desc')->get();
+        $usuarios = Usuario::pluck('nombre', 'id');
 
-        return view('admin.movimientos.transactions', compact('movimientos'));
+        return view('admin.movimientos.transactions', compact('movimientos', 'usuarios'));
     }
 
     // AGREGAR MOVIMIENTO
     public function agregar(Request $request, $accion)
-    {
-        $nombreCliente = $request->input('nombre_cliente');
-        $concepto = $request->input('concepto');
-        $monto = $request->input('monto');
-        $tipo = $request->input('tipo');
+{
+    // Obtener la lista de usuarios
+    $usuarios = Usuario::pluck('nombre', 'id');
 
-        // Insertar el nuevo movimiento en la base de datos "movimientos"
-        $movimiento = new Movimiento();
-        $movimiento->nombre_cliente = $nombreCliente;
-        $movimiento->concepto = $concepto;
-        $movimiento->fecha = date('Y-m-d H:i:s');
-        $movimiento->monto = $monto;
-        $movimiento->tipo = $tipo;
-        $movimiento->save();
+    $usuarioId = $request->input('usuario_id'); // Obtener el ID del usuario seleccionado
 
-        $mensaje = ($tipo === 'cobro') ? 'Cobro' : 'Pago';
-        return redirect()->back()->with('success', $mensaje . ' agregado exitosamente');
-    }
+    // Obtener el nombre del cliente seleccionado
+    $nombreCliente = $usuarios[$usuarioId];
+
+    $concepto = $request->input('concepto');
+    $monto = $request->input('monto');
+    $tipo = $request->input('tipo');
+
+    // Insertar el nuevo movimiento en la base de datos "movimientos"
+    $movimiento = new Movimiento();
+    $movimiento->nombre_cliente = $nombreCliente;
+    $movimiento->concepto = $concepto;
+    $movimiento->fecha = date('Y-m-d H:i:s');
+    $movimiento->monto = $monto;
+    $movimiento->tipo = $tipo;
+    $movimiento->usuario_id = $usuarioId; // Asignar el ID del usuario al movimiento
+    $movimiento->save();
+
+    $mensaje = ($tipo === 'cobro') ? 'Cobro' : 'Pago';
+    return redirect()
+    ->back()
+    ->with(['success' => $mensaje . ' agregado exitosamente', 'usuarios' => $usuarios]);
+
+}
+
+
 
     public function editar(Request $request, $id)
     {
@@ -97,11 +112,11 @@ class MovimientosController extends Controller
     }
     
     // DASHBOARD DE MOVIMIENTOS
-    public function index(UsersController $usersController)
+    public function index()
     {
         $movimientos = Movimiento::orderBy('id', 'desc')->get();
-        $clienteCount = $usersController->getClienteCount();
-        $proveedoresCount = $usersController->getProveedoresCount();
+        $clienteCount = $this->getClienteCount();
+        $proveedoresCount = $this->getProveedoresCount();
         $totalTransacciones = Movimiento::count();
 
         $cobradoHoy = Movimiento::where('tipo', 'cobro')
@@ -142,5 +157,31 @@ class MovimientosController extends Controller
             ->get();
         
         return view('admin.movimientos.expenses', compact('movimientos'));
+    }
+
+    // BUSCAR MOVIMIENTO
+    public function search(Request $request)
+    {
+    $searchText = $request->input('search');
+
+    // Realizar la búsqueda de movimientos según el texto de búsqueda
+    $movimientos = Movimiento::where('nombre_cliente', 'LIKE', "%{$searchText}%")
+        ->orWhere('concepto', 'LIKE', "%{$searchText}%")
+        ->orWhere('tipo', 'LIKE', "%{$searchText}%")
+        ->orderBy('id', 'desc')
+        ->get();
+
+    // Renderizar las filas de la tabla como HTML
+    $html = View::make('admin.movimientos.table_rows', compact('movimientos'))->render();
+
+    // Retornar el HTML como respuesta AJAX
+    return $html;
+    }
+
+    // VISTA AGREGAR USUARIO
+
+    public function agregarUsuario()
+    {
+        return view('admin.movimientos.agregar-usuario');
     }
 }

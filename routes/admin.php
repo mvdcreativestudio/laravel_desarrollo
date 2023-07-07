@@ -273,11 +273,13 @@ Route::get('/movimientos/{id}', [MovimientosController::class, 'ver'])->name('mo
 Route::get('/movimientos/{id}/editar', [MovimientosController::class, 'editar'])->name('movimientos.editar');
 Route::put('/movimientos/{id}', [MovimientosController::class, 'actualizar'])->name('movimientos.actualizar');
 Route::delete('/movimientos/{id}', [MovimientosController::class, 'eliminar'])->name('movimientos.eliminar');
+Route::get('/movimientos/transactions/search', [MovimientosController::class, 'search'])->name('admin.movimientos.search');
 
 
-/** Usuarios Facturación Routes */
+/** Usuarios Movimientos Routes */
 Route::get('/usuarios/movimientos', [UsersController::class, 'users'])->name('admin.movimientos.users');
 Route::post('/usuarios/agregar', [UsersController::class, 'agregarUsuario'])->name('users.agregarUsuario');
+Route::get('/usuarios/agregar-usuario', [MovimientosController::class, 'agregarUsuario'])->name('admin.movimientos.agregar-usuario');
 
 
 /** POS */
