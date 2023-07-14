@@ -1,16 +1,15 @@
+
+  
+
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="#">
-              <img src="{{ asset('uploads/logo3.png') }}" alt="{{ $settings->site_name }}" class="m-3" style="width: 80%; object-fit: cover; float: left;">
+                <img src="{{ asset('uploads/logo3.png') }}" alt="{{ $settings->site_name }}" class="m-3" style="width: 80%; object-fit: cover; float: left;">
             </a>
         </div>
-          
-          
-          
-          
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="">||</a>
+            <a href="#" id="collapseButton"><i class="fas fa-chevron-left"></i></a>
         </div>
         <ul class="sidebar-menu">
             

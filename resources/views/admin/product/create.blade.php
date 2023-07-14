@@ -76,6 +76,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="codigo_barras">Código de Barras:</label>
+                            <input type="text" id="codigo_barras" name="codigo_barras" readonly>
+                            <button type="button" onclick="openBarcodeScanner()">Escanear Código de Barras</button>
+                        </div>
+
+                        <div class="form-group">
                             <label>Price</label>
                             <input type="text" class="form-control" name="price" value="{{old('price')}}">
                         </div>
@@ -220,4 +226,6 @@
             })
         })
     </script>
+
+
 @endpush

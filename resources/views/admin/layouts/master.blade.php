@@ -44,7 +44,7 @@
 </script>
 <!-- /END GA --></head>
 
-<body>
+<body class="bg-color1">
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
@@ -76,6 +76,8 @@
 
 
 
+
+
   <!-- JS Libraies -->
   <script src="{{asset('backend/assets/modules/simple-weather/jquery.simpleWeather.min.js')}}"></script>
   <script src="{{asset('backend/assets/modules/chart.min.js')}}"></script>
@@ -90,13 +92,8 @@
   <script src="{{asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
   <script src="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
   <script src="{{asset('backend/assets/modules/select2/dist/js/select2.full.min.js')}}"></script>
-  <!-- Incluye Chart.js y sus dependencias desde una instalación local -->
-  
+  <script src="{{asset('backend/assets/js/page/charts.js')}}"></script>
 
-
-
-
-  
 
 
   <!-- Page Specific JS File -->

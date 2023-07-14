@@ -59,9 +59,9 @@
                         @if (auth()->user()->role === 'user')
                         <li><a href="{{route('user.dashboard')}}">mi cuenta</a></li>
                         @elseif (auth()->user()->role === 'vendor')
-                        <li><a href="{{route('vendor.dashbaord')}}">Dashboard</a></li>
+                        <li><a href="{{route('vendor.dashboard')}}">Dashboard</a></li>
                         @elseif (auth()->user()->role === 'admin')
-                        <li><a href="{{route('admin.dashbaord')}}">Dashboard</a></li>
+                        <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
 
                         @endif
                         @else
@@ -92,9 +92,9 @@
         @if (auth()->user()->role === 'user')
         <li><a href="{{route('user.dashboard')}}"><i class="fal fa-user"></i></a></li>
         @elseif (auth()->user()->role === 'vendor')
-        <li><a href="{{route('vendor.dashbaord')}}"><i class="fal fa-user"></i></a></li>
+        <li><a href="{{route('vendor.dashboard')}}"><i class="fal fa-user"></i></a></li>
         @elseif (auth()->user()->role === 'admin')
-        <li><a href="{{route('admin.dashbaord')}}"><i class="fal fa-user"></i></a></li>
+        <li><a href="{{route('admin.dashboard')}}"><i class="fal fa-user"></i></a></li>
         @endif
         @else
         <li><a href="{{route('login')}}"><i class="fal fa-user"></i></a></li>

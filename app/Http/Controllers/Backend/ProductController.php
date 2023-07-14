@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\BarcodeScannerController;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
@@ -18,6 +19,7 @@ use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
 
 class ProductController extends Controller
 {
@@ -82,6 +84,7 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->video_link = $request->video_link;
         $product->sku = $request->sku;
+        $product->barcode = $request->barcode;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
@@ -158,6 +161,7 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->video_link = $request->video_link;
         $product->sku = $request->sku;
+        $product->barcode = $request->barcode;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
         $product->offer_start_date = $request->offer_start_date;
@@ -224,4 +228,5 @@ class ProductController extends Controller
 
         return redirect()->route('admin.quickLoadForm');
     }
+
 }

@@ -53,8 +53,8 @@
                 </div>
                     
                 <table id="movimientosTable" class="table table-striped">
-                    <thead>
-                        <tr class="text-center">
+                    <thead class="thead-dark">
+                        <tr class="tr-light text-center">
                             <th>Id</th>
                             <th>Nombre del Cliente</th>
                             <th>Tipo</th>

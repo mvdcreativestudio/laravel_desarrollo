@@ -8,6 +8,24 @@
 
 ## CHANGELOG
 
+### v10.7.0 - 2023-06-08
+
+- feat: new method for enum options #196
+
+### v10.6.0 - 2023-03-31
+
+- feat: thead class builder #191
+- fix: #169 
+- fix: [yajra/laravel-datatables#2706](https://github.com/yajra/laravel-datatables/issues/2706)
+
+### v10.5.2 - 2023-03-31
+
+- fix: backward compatibility with FormOptions class #190
+
+### v10.5.1 - 2023-03-28
+
+- fix: scripts attributes not working #189
+
 ### v10.5.0 - 2023-03-02
 
 - feat: hide/show fields based on editor action #188

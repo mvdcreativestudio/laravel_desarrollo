@@ -13,9 +13,9 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>All Products</h4>
+                    <h4>Todos los productos</h4>
                     <div class="card-header-action">
-                        <a href="{{route('admin.products.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Create New</a>
+                        <a href="{{route('admin.products.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Crear nuevo</a>
                     </div>
                   </div>
                   <div class="card-body">

@@ -24,9 +24,15 @@ class AdminController extends Controller
         $todaysPendingOrder = Order::whereDate('created_at', Carbon::today())
             ->where('order_status', 'pending')->count();
         $totalOrders = Order::count();
+        $ordenesPagas = Order::where('payment_status', 1)
+        ->where('order_status', '!=', 'delivered')
+        ->count();
+        $pendientesDePago = Order::where('payment_status', 0)->count();
         $totalPendingOrders = Order::where('order_status', 'pending')->count();
         $totalCanceledOrders = Order::where('order_status', 'canceled')->count();
         $totalCompleteOrders = Order::where('order_status', 'delivered')->count();
+        $totalProductQty = Order::sum('product_qty');
+
 
         $todaysEarnings = Order::where('order_status','!=', 'canceled')
             ->where('payment_status',1)
@@ -145,7 +151,10 @@ class AdminController extends Controller
             'lastMonthEarnings',
             'lastYearEarnings',
             'salesData',
-            'previousWeekSalesData'
+            'previousWeekSalesData',
+            'ordenesPagas',
+            'pendientesDePago',
+            'totalProductQty'
         ));
     }
 

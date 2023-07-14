@@ -11,7 +11,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 
 class MovimientosController extends Controller
+
 {
+
     // TODOS LOS MOVIMIENTOS
 
     public function transactions()
@@ -114,9 +116,10 @@ class MovimientosController extends Controller
     // DASHBOARD DE MOVIMIENTOS
     public function index()
     {
-        $movimientos = Movimiento::orderBy('id', 'desc')->get();
-        $clienteCount = $this->getClienteCount();
-        $proveedoresCount = $this->getProveedoresCount();
+        $movimientos = Movimiento::with('usuario')->orderBy('id', 'desc')->get();
+        $clienteCount = Usuario::where('tipo_usuario', 'cliente')->count();
+        $proveedoresCount = Usuario::where('tipo_usuario', 'proveedor')->count();
+
         $totalTransacciones = Movimiento::count();
 
         $cobradoHoy = Movimiento::where('tipo', 'cobro')
@@ -136,8 +139,8 @@ class MovimientosController extends Controller
             ->whereYear('created_at', now()->year)
             ->sum('monto');
         
-        return view('admin.movimientos.index', compact('movimientos', 'clienteCount', 'proveedoresCount', 'totalTransacciones', 'cobradoHoy', 'ingresosSemana', 'ingresosMes', 'ingresosAño'));
-    }
+            return view('admin.movimientos.index', compact('movimientos', 'clienteCount', 'proveedoresCount', 'totalTransacciones', 'cobradoHoy', 'ingresosSemana', 'ingresosMes', 'ingresosAño'));
+        }
     
     // INGRESOS
     public function incomes()

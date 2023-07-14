@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('long_description');
             $table->text('video_link')->nullable();
             $table->string('sku')->nullable();
+            $table->string('barcode')->nullable();
             $table->double('price');
             $table->double('offer_price')->nullable();
             $table->date('offer_start_date')->nullable();

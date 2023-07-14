@@ -9,9 +9,9 @@
                     <h1 class="mr-auto">Dashboard</h1>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-primary">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
+                            <div class="card-icon">
                                 <i class="far fa-user"></i>
                             </div>
                             <div class="card-wrap">
@@ -24,9 +24,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-primary">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
+                            <div class="card-icon">
                                 <i class="far fa-user"></i>
                             </div>
                             <div class="card-wrap">
@@ -35,14 +35,14 @@
                                 </div>
                                 <div class="card-body">
                                     {{$proveedoresCount}}
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
-                            <div class="card-icon bg-secondary">
-                                <i class="far fa-circle"></i>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
+                            <div class="card-icon">
+                                <i class="fas fa-arrows-spin"></i>
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
@@ -54,8 +54,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
+                </div>
+
+
+
+                <div class="row">
+    
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
                             <div class="card-icon bg-success">
                                 <i class="far fa-file"></i>
                             </div>
@@ -69,8 +75,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
                             <div class="card-icon bg-warning">
                                 <i class="far fa-file"></i>
                             </div>
@@ -84,10 +90,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
                             <div class="card-icon bg-danger">
-                                <i class="fas fa-file"></i>
+                                <i class="far fa-file"></i>
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
@@ -106,12 +112,6 @@
                     <div class="card">
                       <div class="card-header">
                         <h4>Estadísticas</h4>
-                        <div class="card-header-action">
-                          <div class="btn-group">
-                            <a href="#" class="btn btn-primary">Semana</a>
-                            <a href="#" class="btn">Mes</a>
-                          </div>
-                        </div>
                       </div>
                       <div class="card-body">
                         <canvas id="myChart" height="182"></canvas>
@@ -149,10 +149,11 @@
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped" id="table-1">
-                                            <thead class="text-center">
-                                                <tr>
+                                            <thead class="text-center thead-dark">
+                                                <tr class="tr-light text-white">
                                                     <th>#</th>
-                                                    <th>Nombre Cliente</th>
+                                                    <th>Cliente</th>
+                                                    <th>Empresa</th>
                                                     <th>Concepto</th>
                                                     <th>Monto</th>
                                                     <th>Tipo</th>
@@ -162,10 +163,11 @@
                                             <tbody class="text-center">
                                               @foreach ($movimientos as $movimiento)
                                                   <tr>
-                                                      <td><a  class="font-weight-bold" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->id }}</td></a>
-                                                      <td><a class="font-weight-bold" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->nombre_cliente }}</td></a>
-                                                      <td>{{ $movimiento->concepto }}</td>
-                                                      <td>${{ $movimiento->monto }}</td>
+                                                      <td><a  class="text-dark" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->id }}</td></a>
+                                                      <td><a class="text-dark" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->nombre_cliente }} {{ $movimiento->usuario->apellido }}</td></a>
+                                                      <td><a class="text-dark" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->usuario->empresa }}</td></a>
+                                                      <td class="text-dark">{{ $movimiento->concepto }}</td>
+                                                      <td class="text-dark">${{ $movimiento->monto }}</td>
                                                       <td>
                                                         @if ($movimiento->tipo === 'Cobro')
                                                         <span class="text-success font-weight-bold">Ingreso</span>

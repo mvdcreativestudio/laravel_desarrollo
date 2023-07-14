@@ -86,6 +86,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Código de Barras</label>
+                            <input type="text" class="form-control" name="barcode" value="{{ $product->barcode }}">
+                        </div>
+
+                        <div class="form-group">
                             <label>Price</label>
                             <input type="text" class="form-control" name="price" value="{{ $product->price }}">
                         </div>

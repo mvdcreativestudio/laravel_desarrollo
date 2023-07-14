@@ -54,8 +54,8 @@
                                 
                                 <div id="list-view-container">
                                     <table class="table table-striped" id="productos-table">
-                                        <thead>
-                                            <tr>
+                                        <thead class="thead-dark">
+                                            <tr class="tr-light">
                                                 <th>Nombre</th>
                                                 <th class="text-center">Precio</th>
                                                 <th class="col-1 text-right"></th>
@@ -117,20 +117,20 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th>
-                                    <th></th>
+                            <thead class="thead-dark">
+                                <tr class="tr-light text-center">
+                                    <th class="col-6">Producto</th>
+                                    <th class="col-1">Precio</th>
+                                    <th class="col-3">Cantidad</th>
+                                    <th class="col-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($productosOrden as $productoOrden)
                                     <tr>
-                                        <td>{{ Str::limit($productoOrden['name'], 20) }}</td>
-                                        <td class="precio-producto">{{ $productoOrden['price'] }}</td>
-                                        <td>
+                                        <td class="col-6">{{ Str::limit($productoOrden['name'], 20) }}</td>
+                                        <td class="col-1 precio-producto">${{ $productoOrden['price'] }}</td>
+                                        <td class="col-3">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <button class="btn btn-primary btn-sm" type="button" onclick="decrementCantidad(this)">-</button>
@@ -141,7 +141,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="col-2">
                                             <form action="{{ route('admin.pos.eliminar-producto') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="producto_id" value="{{ $productoOrden['id'] }}">
@@ -154,6 +154,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        
                         
                         <button class="col-12 btn btn-danger" onclick="event.preventDefault(); document.getElementById('form-vaciar-productos').submit();">Vaciar productos</button>
                         <form id="form-vaciar-productos" action="{{ route('admin.pos.vaciar-productos') }}" method="POST" style="display: none;">

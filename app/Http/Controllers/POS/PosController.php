@@ -81,7 +81,7 @@ class PosController extends Controller
             session()->put('productosOrden', $productosOrden->all());
         }
 
-        return redirect()->route('admin.pos.dashboard');
+        return redirect()->route('admin.pos.caja');
     }
 
     public function vaciarProductos()
@@ -109,6 +109,11 @@ class PosController extends Controller
             $orderProduct->product_id = $producto['id'];
             $orderProduct->cantidad = $producto['cantidad'];
             $orderProduct->save();
+
+            // Actualizar la cantidad disponible del producto
+            $product = Product::find($producto['id']);
+            $product->qty -= $producto['cantidad'];
+            $product->save();
         }
 
         // Establecer el total de la orden en el campo "total" de la tabla PosOrder

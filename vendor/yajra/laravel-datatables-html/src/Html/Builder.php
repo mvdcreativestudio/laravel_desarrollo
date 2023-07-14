@@ -100,11 +100,11 @@ class Builder
      * @param  array  $attributes
      * @return \Illuminate\Support\HtmlString
      */
-    public function scripts(string $script = null, array $attributes = ['type' => 'text/javascript']): HtmlString
+    public function scripts(string $script = null, array $attributes = []): HtmlString
     {
         $script = $script ?: $this->generateScripts();
         $attributes = $this->html->attributes(
-            array_merge($attributes, ['type' => static::$jsType])
+            array_merge($attributes, ['type' => $attributes['type'] ?? static::$jsType])
         );
 
         return new HtmlString("<script{$attributes}>$script</script>");
@@ -198,13 +198,18 @@ class Builder
         $htmlAttr = $this->html->attributes($this->tableAttributes);
 
         $tableHtml = '<table'.$htmlAttr.'>';
-        $searchHtml = $drawSearch ? '<tr class="search-filter">'.implode('',
-                $this->compileTableSearchHeaders()).'</tr>' : '';
-        $tableHtml .= '<thead><tr>'.implode('', $th).'</tr>'.$searchHtml.'</thead>';
+        $searchHtml = $drawSearch
+                ? '<tr class="search-filter">'.implode('', $this->compileTableSearchHeaders()).'</tr>'
+                : '';
+
+        $tableHtml .= '<thead'.($this->theadClass ?? '').'>';
+        $tableHtml .= '<tr>'.implode('', $th).'</tr>'.$searchHtml.'</thead>';
+
         if ($drawFooter) {
             $tf = $this->compileTableFooter();
             $tableHtml .= '<tfoot><tr>'.implode('', $tf).'</tr></tfoot>';
         }
+
         $tableHtml .= '</table>';
 
         return new HtmlString($tableHtml);

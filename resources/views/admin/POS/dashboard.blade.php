@@ -10,7 +10,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
+                        <div class="card card-statistic-1 bg-dark">
                             <div class="card-icon bg-primary">
                                 <i class="far fa-user"></i>
                             </div>
@@ -25,9 +25,9 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
+                        <div class="card card-statistic-1 bg-dark">
                             <div class="card-icon bg-primary">
-                                <i class="far fa-user"></i>
+                                <i class="fas fa-money-bill-trend-up"></i>
                             </div>
                             <div class="card-wrap">
                                 <div class="card-header">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
+                        <div class="card card-statistic-1 bg-dark">
                             <div class="card-icon bg-primary">
                                 <i class="fas fa-store"></i>
                             </div>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1">
+                        <div class="card card-statistic-1 bg-dark">
                             <div class="card-icon bg-primary">
                                 <i class="fas fa-truck"></i>
                             </div>
@@ -73,19 +73,33 @@
 
 
                 <div class="row justify-content-center">
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card bg-primary text-white text-center">
-                            <div class="card-body">
-                                <h5 class="card-title">Efectivo</h5>
-                                <h4 class="card-text">${{$ingresosEfectivoHoy}}</h4>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
+                            <div class="card-icon bg-primary">
+                                <i class="far fa-money-bill-1"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Efectivo</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-text">${{$ingresosEfectivoHoy}}</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="card bg-primary text-white text-center">
-                            <div class="card-body">
-                                <h5 class="card-title">Tarjetas</h5>
-                                <h4 class="card-text">${{$ingresosTarjetasHoy}}</h4>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1 bg-dark">
+                            <div class="card-icon bg-primary">
+                                <i class="far fa-credit-card"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Tarjetas</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-text">${{$ingresosTarjetasHoy}}</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -103,8 +117,8 @@
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped" id="table-1">
-                                            <thead class="text-center">
-                                                <tr>
+                                            <thead class="text-center thead-dark">
+                                                <tr class="tr-light">
                                                     <th>#</th>
                                                     <th>Forma de entrega</th>
                                                     <th>Medio de pago</th>

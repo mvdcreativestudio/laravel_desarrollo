@@ -89,22 +89,29 @@ class ProductDataTable extends DataTable
     /**
      * Optional method if you want to use the html builder.
      */
-    public function html(): HtmlBuilder
+    public function html()
     {
         return $this->builder()
             ->setTableId('product-table')
             ->columns([
-                ['data' => 'id', 'name' => 'id', 'title' => 'ID'],
-                ['data' => 'image', 'name' => 'image', 'title' => 'Imagen'],
-                ['data' => 'name', 'name' => 'name', 'title' => 'Nombre'],
-                ['data' => 'price', 'name' => 'price', 'title' => 'Precio'],
-                ['data' => 'type', 'name' => 'type', 'title' => 'Tipo', 'width' => '150'],
-                ['data' => 'status', 'name' => 'status', 'title' => 'Estado'],
-                ['data' => 'action', 'name' => 'action', 'title' => 'Acción', 'orderable' => false, 'searchable' => false, 'width' => '200', 'className' => 'text-center'],
+                Column::make('id')->title('ID'),
+                Column::make('image')->title('Imagen'),
+                Column::make('name')->title('Nombre'),
+                Column::make('price')->title('Precio'),
+                Column::make('type')->title('Tipo')->width('150'),
+                Column::make('status')->title('Estado'),
+                Column::computed('action')
+                    ->exportable(false)
+                    ->printable(false)
+                    ->width('200')
+                    ->addClass('text-center'),
             ])
             ->minifiedAjax()
             ->orderBy(0)
             ->selectStyleSingle()
+            ->language([
+                'sLengthMenu' => 'Vista: _MENU_ ', // Modifica el texto aquí
+            ])
             ->buttons([
                 Button::make('excel'),
                 Button::make('csv'),

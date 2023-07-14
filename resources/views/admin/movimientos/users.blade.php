@@ -93,8 +93,8 @@
         </div>
 
         <table class="table table-striped">
-            <thead>
-                <tr class="text-center">
+            <thead class="thead-dark">
+                <tr class="text-center tr-light">
                     <th>Nombre</th>
                     <th>Empresa</th>
                     <th>País</th>
