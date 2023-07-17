@@ -10,7 +10,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1 bg-dark">
+                        <div class="card card-statistic-1 ">
                             <div class="card-icon bg-primary">
                                 <i class="far fa-user"></i>
                             </div>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1 bg-dark">
+                        <div class="card card-statistic-1 ">
                             <div class="card-icon bg-primary">
                                 <i class="fas fa-money-bill-trend-up"></i>
                             </div>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1 bg-dark">
+                        <div class="card card-statistic-1 ">
                             <div class="card-icon bg-primary">
                                 <i class="fas fa-store"></i>
                             </div>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1 bg-dark">
+                        <div class="card card-statistic-1 ">
                             <div class="card-icon bg-primary">
                                 <i class="fas fa-truck"></i>
                             </div>
@@ -74,7 +74,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1 bg-dark">
+                        <div class="card card-statistic-1 ">
                             <div class="card-icon bg-primary">
                                 <i class="far fa-money-bill-1"></i>
                             </div>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                        <div class="card card-statistic-1 bg-dark">
+                        <div class="card card-statistic-1 ">
                             <div class="card-icon bg-primary">
                                 <i class="far fa-credit-card"></i>
                             </div>
@@ -117,8 +117,8 @@
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped" id="table-1">
-                                            <thead class="text-center thead-dark">
-                                                <tr class="tr-light">
+                                            <thead class="text-center">
+                                                <tr>
                                                     <th>#</th>
                                                     <th>Forma de entrega</th>
                                                     <th>Medio de pago</th>

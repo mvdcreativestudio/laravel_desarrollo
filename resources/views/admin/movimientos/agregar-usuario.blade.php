@@ -19,11 +19,11 @@
 
                 <div class="form-group row">
                     <div class="col-lg-6 col-md-12">
-                        <label for="nombre">Nombre <span class="required-field">*</span></label>
+                        <label for="nombre">Nombre</label>
                         <input type="text" name="nombre" id="nombre" class="form-control" required>
                     </div>
                     <div class="col-lg-6 col-md-12">
-                        <label for="apellido">Apellido <span class="required-field">*</span></label>
+                        <label for="apellido">Apellido</label>
                         <input type="text" name="apellido" id="apellido" class="form-control" required>
                     </div>
                 </div>

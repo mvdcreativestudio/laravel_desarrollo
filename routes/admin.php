@@ -50,7 +50,7 @@ use App\Http\Controllers\POS\PosController;
 use App\Http\Controllers\Backend\BulkProductController;
 use App\Http\Controllers\Backend\LoyaltyProgramController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\Backend\BarcodeScannerController;
+use App\Http\Controllers\ModuloController;
 
 
 
@@ -289,6 +289,7 @@ Route::get('/usuarios/agregar-usuario', [MovimientosController::class, 'agregarU
 Route::get('/usuarios/{id}', [UsersController::class, 'verUsuario'])->name('admin.usuarios.ver');
 
 
+
 /** POS */
 Route::get('/pos/caja', [PosController::class, 'caja'])->name('admin.pos.caja');
     Route::post('/pos/agregar-producto', [PosController::class, 'agregarProducto'])->name('pos.agregar-producto');
@@ -298,7 +299,6 @@ Route::get('/pos/caja', [PosController::class, 'caja'])->name('admin.pos.caja');
     Route::post('/pos/finalizar-compra', [PosController::class, 'finalizarCompra'])->name('admin.pos.finalizar-compra');
     Route::get('/admin/pos/confirmacion', function () {return view('admin.pos.confirmacion');})->name('admin.pos.confirmacion');
     Route::post('/admin/pos/actualizar-cantidad', [PosController::class, 'actualizarCantidad'])->name('admin.pos.actualizar-cantidad');
-
 Route::get('/pos/dashboard', [PosController::class, 'dashboard'])->name('admin.pos.dashboard');
 
 /** Loyalty Program */
@@ -307,6 +307,12 @@ Route::get('admin/loyalty-program', [LoyaltyProgramController::class, 'loyalty']
 
 /** Stock */
 Route::get('/admin/stock', [StockController::class, 'index'])->name('admin.stock.index');
+
+/** Módulos */
+
+Route::get('/admin/modulos', [ModuloController::class, 'index'])->name('admin.modulos.index');
+Route::post('/admin/modulos/{id}', [ModuloController::class, 'update'])->name('admin.modulos.update');
+
 
 
 

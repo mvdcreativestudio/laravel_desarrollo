@@ -13,49 +13,74 @@ use Illuminate\Support\Facades\View;
 class MovimientosController extends Controller
 
 {
-
     // TODOS LOS MOVIMIENTOS
-
     public function transactions()
     {
         $movimientos = Movimiento::orderBy('id', 'desc')->get();
-        $usuarios = Usuario::pluck('nombre', 'id');
+        $usuariosCollection = Usuario::select('id', 'nombre', 'apellido')->get();
+        $usuarios = $usuariosCollection->pluck('nombreCompleto', 'id');
+
+        foreach ($usuariosCollection as $usuario) {
+            $usuarios[$usuario->id] = $usuario->nombre . ' ' . $usuario->apellido;
+        }
 
         return view('admin.movimientos.transactions', compact('movimientos', 'usuarios'));
     }
 
     // AGREGAR MOVIMIENTO
     public function agregar(Request $request, $accion)
-{
-    // Obtener la lista de usuarios
-    $usuarios = Usuario::pluck('nombre', 'id');
+    {
+        // Obtener la lista de usuarios
+        $usuariosCollection = Usuario::select('id', 'nombre', 'apellido')->get();
+        $usuarios = $usuariosCollection->pluck('nombreCompleto', 'id');
 
-    $usuarioId = $request->input('usuario_id'); // Obtener el ID del usuario seleccionado
+        $usuarioId = $request->input('usuario_id'); // Obtener el ID del usuario seleccionado
 
-    // Obtener el nombre del cliente seleccionado
-    $nombreCliente = $usuarios[$usuarioId];
+        // Obtener el nombre completo del cliente seleccionado
+        $usuario = $usuariosCollection->where('id', $usuarioId)->first();
+        $nombreCliente = $usuario->nombre . ' ' . $usuario->apellido;
 
-    $concepto = $request->input('concepto');
-    $monto = $request->input('monto');
-    $tipo = $request->input('tipo');
+        $concepto = $request->input('concepto');
+        $monto = $request->input('monto');
+        $tipo = $request->input('tipo');
+        $fechaVencimiento = $request->input('fecha_vencimiento');
+        $estado = $request->input('estado');
 
-    // Insertar el nuevo movimiento en la base de datos "movimientos"
-    $movimiento = new Movimiento();
-    $movimiento->nombre_cliente = $nombreCliente;
-    $movimiento->concepto = $concepto;
-    $movimiento->fecha = date('Y-m-d H:i:s');
-    $movimiento->monto = $monto;
-    $movimiento->tipo = $tipo;
-    $movimiento->usuario_id = $usuarioId; // Asignar el ID del usuario al movimiento
-    $movimiento->save();
+        // Insertar el nuevo movimiento en la base de datos "movimientos"
+        $movimiento = new Movimiento();
+        $movimiento->nombre_cliente = $nombreCliente;
+        $movimiento->concepto = $concepto;
+        $movimiento->monto = $monto;
+        $movimiento->tipo = $tipo;
+        $movimiento->fecha_vencimiento = $fechaVencimiento;
+        $movimiento->estado = $estado;
+        $movimiento->usuario_id = $usuarioId; // Asignar el ID del usuario al movimiento
 
-    $mensaje = ($tipo === 'cobro') ? 'Cobro' : 'Pago';
-    return redirect()
-    ->back()
-    ->with(['success' => $mensaje . ' agregado exitosamente', 'usuarios' => $usuarios]);
+        // Obtener la fecha actual
+        $fechaActual = Carbon::now();
 
-}
+        // Obtener la fecha de vencimiento del movimiento
+        $fechaVencimiento = Carbon::parse($movimiento->fecha_vencimiento);
 
+        // Obtener la diferencia en días entre la fecha de vencimiento y la fecha actual
+        $diasRestantes = $fechaActual->diffInDays($fechaVencimiento, false);
+
+        // Determinar el estado según los días restantes
+        if ($diasRestantes >= 7) {
+            $movimiento->estado_vencimiento = 'Vigente';
+        } elseif ($diasRestantes >= 0) {
+            $movimiento->estado_vencimiento = 'Por Vencer';
+        } else {
+            $movimiento->estado_vencimiento = 'Vencida';
+        }
+
+        $movimiento->save();
+
+        $mensaje = ($tipo === 'cobro') ? 'Cobro' : 'Pago';
+        return redirect()
+            ->back()
+            ->with(['success' => $mensaje . ' agregado exitosamente', 'usuarios' => $usuarios]);
+    }
 
 
     public function editar(Request $request, $id)
@@ -138,8 +163,18 @@ class MovimientosController extends Controller
         $ingresosAño = Movimiento::where('tipo', 'cobro')
             ->whereYear('created_at', now()->year)
             ->sum('monto');
+
+        $movimientosVigentes = Movimiento::where('estado_vencimiento', 'Vigente')
+        ->where('estado', 'Impago')
+        ->count();
+        $movimientosPorVencer = Movimiento::where('estado_vencimiento', 'Por Vencer')
+        ->where('estado', 'Impago')
+        ->count();
+        $movimientosVencidos = Movimiento::where('estado_vencimiento', 'Vencida')
+            ->where('estado', 'Impago')
+            ->count();
         
-            return view('admin.movimientos.index', compact('movimientos', 'clienteCount', 'proveedoresCount', 'totalTransacciones', 'cobradoHoy', 'ingresosSemana', 'ingresosMes', 'ingresosAño'));
+            return view('admin.movimientos.index', compact('movimientos', 'clienteCount', 'proveedoresCount', 'totalTransacciones', 'cobradoHoy', 'ingresosSemana', 'ingresosMes', 'ingresosAño', 'movimientosVigentes', 'movimientosPorVencer', 'movimientosVencidos'));
         }
     
     // INGRESOS

@@ -35,8 +35,8 @@ class UsersController extends Controller
     public function agregarUsuario(Request $request)
     {
         $request->validate([
-            'nombre' => 'required',
-            'apellido' => 'required',
+            'nombre' => 'nullable',
+            'apellido' => 'nullable',
             'empresa' => 'nullable',
             'rut' => 'nullable',
             'pais' => 'required',

@@ -73,6 +73,7 @@
   <script src="{{asset('backend/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
   <script src="{{asset('backend/assets/modules/moment.min.js')}}"></script>
   <script src="{{asset('backend/assets/js/stisla.js')}}"></script>
+  <script src="{{asset('backend/assets/js/page/movimientos.js')}}"></script>
 
 
 

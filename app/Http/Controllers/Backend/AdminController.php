@@ -25,45 +25,44 @@ class AdminController extends Controller
             ->where('order_status', 'pending')->count();
         $totalOrders = Order::count();
         $ordenesPagas = Order::where('payment_status', 1)
-        ->where('order_status', '!=', 'delivered')
-        ->count();
+            ->where('order_status', '!=', 'delivered')
+            ->count();
         $pendientesDePago = Order::where('payment_status', 0)->count();
         $totalPendingOrders = Order::where('order_status', 'pending')->count();
         $totalCanceledOrders = Order::where('order_status', 'canceled')->count();
         $totalCompleteOrders = Order::where('order_status', 'delivered')->count();
         $totalProductQty = Order::sum('product_qty');
 
-
-        $todaysEarnings = Order::where('order_status','!=', 'canceled')
-            ->where('payment_status',1)
+        $todaysEarnings = Order::where('order_status', '!=', 'canceled')
+            ->where('payment_status', 1)
             ->whereDate('created_at', Carbon::today())
-            ->sum('sub_total');        
+            ->sum('sub_total');
 
         $weekStart = now()->subWeek();
         $weekEnd = now();
 
-        $monthStart = Carbon::now()->subMonth()->startOfMonth();
-        $monthEnd = Carbon::now()->subMonth()->endOfMonth();
+        $monthStart = Carbon::now()->startOfMonth();
+        $monthEnd = Carbon::now()->endOfMonth();
 
-        $yearStart = Carbon::now()->subYear()->startOfYear();
-        $yearEnd = Carbon::now()->subYear()->endOfYear();
+        $yearStart = Carbon::now()->startOfYear();
+        $yearEnd = Carbon::now()->endOfYear();
 
         $weekEarnings = Order::where('order_status', '!=', 'canceled')
             ->where('payment_status', 1)
             ->whereBetween('created_at', [$weekStart, $weekEnd])
             ->sum('sub_total');
 
-        $monthEarnings = Order::where('order_status','!=', 'canceled')
-            ->where('payment_status',1)
-            ->whereMonth('created_at', Carbon::now()->month)
+        $monthEarnings = Order::where('order_status', '!=', 'canceled')
+            ->where('payment_status', 1)
+            ->whereBetween('created_at', [$monthStart, $monthEnd])
             ->sum('sub_total');
 
-        $yearEarnings = Order::where('order_status','!=', 'canceled')
-            ->where('payment_status',1)
-            ->whereYear('created_at', Carbon::now()->year)
+        $yearEarnings = Order::where('order_status', '!=', 'canceled')
+            ->where('payment_status', 1)
+            ->whereBetween('created_at', [$yearStart, $yearEnd])
             ->sum('sub_total');
 
-        $totalOrdersAmount = Order::where('order_status','!=','canceled')
+        $totalOrdersAmount = Order::where('order_status', '!=', 'canceled')
             ->where('payment_status', 1)
             ->sum('sub_total');
 
@@ -81,7 +80,7 @@ class AdminController extends Controller
         $yesterdayEarnings = Order::where('order_status', '!=', 'canceled')
             ->where('payment_status', 1)
             ->whereDate('created_at', Carbon::now()->subDays(1)->toDateString())
-            ->sum('sub_total'); 
+            ->sum('sub_total');
 
         $lastWeekEarnings = Order::where('order_status', '!=', 'canceled')
             ->where('payment_status', 1)
@@ -98,34 +97,19 @@ class AdminController extends Controller
             ->whereBetween('created_at', [$yearStart->copy()->subYear(), $yearEnd->copy()->subYear()])
             ->sum('sub_total');
 
-        
-        
         $salesData = [];
 
         for ($i = 6; $i >= 0; $i--) {
-            $date = Carbon::today()->subDays($i);
-            $formattedDate = $date->format('j/n'); // Formato "30/6"
-            $totalEarnings = Order::whereDate('created_at', $date->toDateString())
-                ->where('order_status', '!=', 'canceled')
-                ->where('payment_status', 1)
-                ->sum('sub_total');
-    
-            $salesData[$formattedDate] = $totalEarnings;
-        }   
+            $date = Carbon::today()->subDays($i)->toDateString();
 
-        $previousWeekSalesData = [];
-
-        for ($i = 6; $i >= 0; $i--) {
-            $date = Carbon::today()->subDays(7 + $i); // Ajuste para obtener datos de una semana atrás
-            $formattedDate = $date->format('j/n'); // Formato "30/6"
-            $totalEarnings = Order::whereDate('created_at', $date->toDateString())
-                ->where('order_status', '!=', 'canceled')
+            $dailySales = Order::where('order_status', '!=', 'canceled')
                 ->where('payment_status', 1)
+                ->whereDate('created_at', $date)
                 ->sum('sub_total');
 
-            $previousWeekSalesData[$formattedDate] = $totalEarnings;
-}
-    
+            $salesData[] = $dailySales;
+        }
+
 
         return view('admin.dashboard', compact(
             'todaysOrder',
@@ -151,10 +135,9 @@ class AdminController extends Controller
             'lastMonthEarnings',
             'lastYearEarnings',
             'salesData',
-            'previousWeekSalesData',
             'ordenesPagas',
             'pendientesDePago',
-            'totalProductQty'
+            'totalProductQty',
         ));
     }
 

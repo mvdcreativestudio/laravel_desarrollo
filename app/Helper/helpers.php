@@ -4,14 +4,44 @@ use Illuminate\Support\Facades\Session;
 
 /** Set Sidebar item active */
 
-function setActive(array $route){
-    if(is_array($route)){
-        foreach($route as $r){
-            if(request()->routeIs($r)){
-                return 'active';
+function setActive($route, $output = 'active')
+{
+    if (is_array($route)) {
+        foreach ($route as $r) {
+            if (request()->routeIs($r)) {
+                return $output;
             }
         }
+    } elseif (request()->routeIs($route)) {
+        return $output;
     }
+
+    return '';
+}
+
+function setActiveExcept($excludedRoutes, $activeRoutes, $output = 'active')
+{
+    if (is_array($excludedRoutes)) {
+        foreach ($excludedRoutes as $excludedRoute) {
+            if (request()->routeIs($excludedRoute)) {
+                return '';
+            }
+        }
+    } elseif (request()->routeIs($excludedRoutes)) {
+        return '';
+    }
+
+    if (is_array($activeRoutes)) {
+        foreach ($activeRoutes as $activeRoute) {
+            if (request()->routeIs($activeRoute)) {
+                return $output;
+            }
+        }
+    } elseif (request()->routeIs($activeRoutes)) {
+        return $output;
+    }
+
+    return '';
 }
 
 /** Check if product have discount */

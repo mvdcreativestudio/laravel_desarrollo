@@ -17,10 +17,12 @@ class CreateCashflowMovimientosTable extends Migration
             $table->increments('id');
             $table->integer('usuario_id');
             $table->string('nombre_cliente');
-            $table->date('fecha');
             $table->enum('tipo', ['Cobro', 'Pago'])->default('Cobro');
             $table->string('concepto')->nullable();
             $table->integer('monto');
+            $table->date('fecha_vencimiento');
+            $table->enum('estado', ['Pago', 'Impago'])->default('Impago');
+            $table->string('estado_vencimiento')->nullable();
             $table->timestamps();
         });
     }

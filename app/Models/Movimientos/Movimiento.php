@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movimiento extends Model
 {
-    protected $fillable = ['nombre_cliente', 'concepto', 'fecha', 'monto'];
+    protected $fillable = ['nombre_cliente', 'concepto', 'fecha_vencimiento', 'estado', 'monto', 'estado_vencimiento'];
     protected $table = 'cashflow_movimientos';
 
     public function usuario()
