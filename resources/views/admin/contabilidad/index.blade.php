@@ -70,7 +70,7 @@
                                     <h4>Vigentes</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $movimientosVigentes }}
+                                    {{ $contabilidadVigentes }}
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                                     <h4>Por vencer</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $movimientosPorVencer }}
+                                    {{ $contabilidadPorVencer }}
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                     <h4>Vencidas</h4>
                                 </div>
                                 <div class="card-body">
-                                    {{ $movimientosVencidos }}
+                                    {{ $contabilidadVencidos }}
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Últimos Movimientos</h4>
+                                    <h4>Últimos contabilidad</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -162,11 +162,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="text-center">
-                                                    @foreach ($movimientos->take(10) as $movimiento)
+                                                    @foreach ($contabilidad->take(10) as $movimiento)
                                                     <tr>
-                                                        <td><a class="text-dark" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->id }}</a></td>
-                                                        <td><a class="text-dark" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->nombre_cliente }}</a></td>
-                                                        <td><a class="text-dark" href="{{ route('movimientos.ver', $movimiento->id) }}">{{ $movimiento->usuario->empresa ?: '-' }}</a></td>
+                                                        <td><a class="text-dark" href="{{ route('contabilidad.ver', $movimiento->id) }}">{{ $movimiento->id }}</a></td>
+                                                        <td><a class="text-dark" href="{{ route('contabilidad.ver', $movimiento->id) }}">{{ $movimiento->nombre_cliente }}</a></td>
+                                                        <td><a class="text-dark" href="{{ route('contabilidad.ver', $movimiento->id) }}">{{ $movimiento->usuario->empresa ?: '-' }}</a></td>
                                                         <td class="text-dark">{{ $movimiento->concepto }}</td>
                                                         <td class="text-dark">${{ $movimiento->monto }}</td>
                                                         <td>
@@ -177,14 +177,14 @@
                                                             @endif
                                                         </td>
                                                         <td class="col-2 text-right">
-                                                            <a href="{{ route('movimientos.ver', $movimiento->id) }}" class="btn btn-primary btn-action btn-detail"
+                                                            <a href="{{ route('contabilidad.ver', $movimiento->id) }}" class="btn btn-primary btn-action btn-detail"
                                                                 data-toggle="tooltip" title="Ver">
                                                                 <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="{{ route('movimientos.editar', $movimiento->id) }}" class="btn btn-primary btn-action btn-edit" data-id="{{ $movimiento->id }}" title="Editar">
+                                                            <a href="{{ route('contabilidad.editar', $movimiento->id) }}" class="btn btn-primary btn-action btn-edit" data-id="{{ $movimiento->id }}" title="Editar">
                                                                 <i class="fas fa-pencil-alt"></i>
                                                             </a>
-                                                            <form action="{{ route('movimientos.eliminar', $movimiento->id) }}" method="POST" class="d-inline">
+                                                            <form action="{{ route('contabilidad.eliminar', $movimiento->id) }}" method="POST" class="d-inline">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button class="btn btn-danger btn-action btn-delete" data-toggle="tooltip" title="Eliminar" onclick="return confirm('¿Estás seguro de que quieres eliminar este movimiento?')">
@@ -212,7 +212,7 @@
     <script>
       $('.btn-edit').click(function() {
           var movimientoId = $(this).data('id');
-          var editarMovimientoUrl = "{{ route('movimientos.editar', ':id') }}";
+          var editarMovimientoUrl = "{{ route('contabilidad.editar', ':id') }}";
           editarMovimientoUrl = editarMovimientoUrl.replace(':id', movimientoId);
           $('#editarMovimientoForm').attr('action', editarMovimientoUrl);
           $('#editarMovimientoModal').modal('show');

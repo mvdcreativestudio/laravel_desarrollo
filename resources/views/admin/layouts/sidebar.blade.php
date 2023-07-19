@@ -158,27 +158,27 @@
             </li>
             @endif
 
-            @if($modulos['movimientos']->enabled)
+            @if($modulos['contabilidad']->enabled)
             <!-- Header: Administrador de Pagos -->
             <li class="menu-header">Administrador de Pagos</li>
 
-            <!-- Movimientos -->
-            <li class="dropdown {{ setActiveExcept(['admin.movimientos.users', 'admin.movimientos.agregar-usuario'], 'admin.movimientos.*') }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-arrows-spin"></i><span>Movimientos</span></a>
+            <!-- Contabilidad -->
+            <li class="dropdown {{ setActiveExcept(['admin.contabilidad.users', 'admin.contabilidad.agregar-usuario'], 'admin.contabilidad.*') }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-arrows-spin"></i><span>contabilidad</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ setActive(['admin.movimientos.index']) }}"><a class="nav-link" href="{{ route('admin.movimientos.index') }}">Dashboard</a></li>
-                    <li class="{{ setActive(['admin.movimientos.transactions']) }}"><a class="nav-link" href="{{ route('admin.movimientos.transactions') }}">Todos los movimientos</a></li>
-                    <li class="{{ setActive(['admin.movimientos.incomes']) }}"><a class="nav-link" href="{{ route('admin.movimientos.incomes') }}">Ingresos</a></li>
-                    <li class="{{ setActive(['admin.movimientos.expenses']) }}"><a class="nav-link" href="{{ route('admin.movimientos.expenses') }}">Egresos</a></li>
+                    <li class="{{ setActive(['admin.contabilidad.index']) }}"><a class="nav-link" href="{{ route('admin.contabilidad.index') }}">Dashboard</a></li>
+                    <li class="{{ setActive(['admin.contabilidad.transactions']) }}"><a class="nav-link" href="{{ route('admin.contabilidad.transactions') }}">Todos los contabilidad</a></li>
+                    <li class="{{ setActive(['admin.contabilidad.incomes']) }}"><a class="nav-link" href="{{ route('admin.contabilidad.incomes') }}">Ingresos</a></li>
+                    <li class="{{ setActive(['admin.contabilidad.expenses']) }}"><a class="nav-link" href="{{ route('admin.contabilidad.expenses') }}">Egresos</a></li>
                 </ul>
             </li>
 
-            <!-- Usuarios de Movimientos -->
-            <li class="dropdown {{ setActive(['admin.movimientos.users', 'admin.movimientos.agregar-usuario']) }}">
+            <!-- Usuarios de contabilidad -->
+            <li class="dropdown {{ setActive(['admin.contabilidad.users', 'admin.contabilidad.agregar-usuario']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i><span>Usuarios</span></a>
                 <ul class="dropdown-menu"> 
-                    <li class="{{ setActive(['admin.movimientos.users']) }}"><a class="nav-link" href="{{ route('admin.movimientos.users') }}">Todos los usuarios</a></li>
-                    <li class="{{ setActive(['admin.movimientos.agregar-usuario']) }}"><a class="nav-link" href="{{ route('admin.movimientos.agregar-usuario') }}">Agregar usuario</a></li>
+                    <li class="{{ setActive(['admin.contabilidad.users']) }}"><a class="nav-link" href="{{ route('admin.contabilidad.users') }}">Todos los usuarios</a></li>
+                    <li class="{{ setActive(['admin.contabilidad.agregar-usuario']) }}"><a class="nav-link" href="{{ route('admin.contabilidad.agregar-usuario') }}">Agregar usuario</a></li>
                 </ul>
             </li>
             @endif

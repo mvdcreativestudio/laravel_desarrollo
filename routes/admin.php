@@ -44,8 +44,8 @@ use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorConditionController;
 use App\Http\Controllers\Backend\VendorListController;
 use App\Http\Controllers\Backend\VendorRequestController;
-use App\Http\Controllers\Movimientos\MovimientosController;
-use App\Http\Controllers\Movimientos\UsersController;
+use App\Http\Controllers\Contabilidad\ContabilidadController;
+use App\Http\Controllers\Contabilidad\UsersController;
 use App\Http\Controllers\POS\PosController;
 use App\Http\Controllers\Backend\BulkProductController;
 use App\Http\Controllers\Backend\LoyaltyProgramController;
@@ -269,23 +269,23 @@ Route::put('razorpay-setting/{id}', [RazorpaySettingController::class, 'update']
 Route::put('cod-setting/{id}', [CodSettingController::class, 'update'])->name('cod-setting.update');
 
 
-/** Movimientos Routes */
-Route::get('/movimientos', [MovimientosController::class, 'index'])->name('admin.movimientos.index');
-Route::get('/movimientos/transactions', [MovimientosController::class, 'transactions'])->name('admin.movimientos.transactions');
-Route::get('/movimientos/incomes', [MovimientosController::class, 'incomes'])->name('admin.movimientos.incomes');
-Route::get('/movimientos/expenses', [MovimientosController::class, 'expenses'])->name('admin.movimientos.expenses');
-Route::post('/movimientos/agregar/{accion}', [MovimientosController::class, 'agregar'])->name('movimientos.agregar');
-Route::get('/movimientos/{id}', [MovimientosController::class, 'ver'])->name('movimientos.ver');
-Route::get('/movimientos/{id}/editar', [MovimientosController::class, 'editar'])->name('movimientos.editar');
-Route::put('/movimientos/{id}', [MovimientosController::class, 'actualizar'])->name('movimientos.actualizar');
-Route::delete('/movimientos/{id}', [MovimientosController::class, 'eliminar'])->name('movimientos.eliminar');
-Route::get('/movimientos/transactions/search', [MovimientosController::class, 'search'])->name('admin.movimientos.search');
+/** Contabilidad Routes */
+Route::get('/contabilidad', [ContabilidadController::class, 'index'])->name('admin.contabilidad.index');
+Route::get('/contabilidad/transactions', [ContabilidadController::class, 'transactions'])->name('admin.contabilidad.transactions');
+Route::get('/contabilidad/incomes', [ContabilidadController::class, 'incomes'])->name('admin.contabilidad.incomes');
+Route::get('/contabilidad/expenses', [ContabilidadController::class, 'expenses'])->name('admin.contabilidad.expenses');
+Route::post('/contabilidad/agregar/{accion}', [ContabilidadController::class, 'agregar'])->name('contabilidad.agregar');
+Route::get('/contabilidad/{id}', [ContabilidadController::class, 'ver'])->name('contabilidad.ver');
+Route::get('/contabilidad/{id}/editar', [ContabilidadController::class, 'editar'])->name('contabilidad.editar');
+Route::put('/contabilidad/{id}', [ContabilidadController::class, 'actualizar'])->name('contabilidad.actualizar');
+Route::delete('/contabilidad/{id}', [ContabilidadController::class, 'eliminar'])->name('contabilidad.eliminar');
+Route::get('/contabilidad/transactions/search', [ContabilidadController::class, 'search'])->name('admin.contabilidad.search');
 
 
-/** Usuarios Movimientos Routes */
-Route::get('/usuarios/movimientos', [UsersController::class, 'users'])->name('admin.movimientos.users');
+/** Usuarios Contabilidad Routes */
+Route::get('/usuarios/contabilidad', [UsersController::class, 'users'])->name('admin.contabilidad.users');
 Route::post('/usuarios/agregar', [UsersController::class, 'agregarUsuario'])->name('users.agregarUsuario');
-Route::get('/usuarios/agregar-usuario', [MovimientosController::class, 'agregarUsuario'])->name('admin.movimientos.agregar-usuario');
+Route::get('/usuarios/agregar-usuario', [ContabilidadController::class, 'agregarUsuario'])->name('admin.contabilidad.agregar-usuario');
 Route::get('/usuarios/{id}', [UsersController::class, 'verUsuario'])->name('admin.usuarios.ver');
 
 

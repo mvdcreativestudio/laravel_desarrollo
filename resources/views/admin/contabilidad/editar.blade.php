@@ -6,7 +6,7 @@
             <h4>Editar Movimiento</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.movimientos.actualizar', $movimiento->id) }}" method="POST">
+            <form action="{{ route('admin.contabilidad.actualizar', $movimiento->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -32,7 +32,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                    <a href="{{ route('admin.movimientos.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <a href="{{ route('admin.contabilidad.index') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>

@@ -545,7 +545,7 @@ $(function() {
       opacity: .8,
       tolerance: 'pointer'
     });
-  }
+  }l
 
   // Daterangepicker
   if(jQuery().daterangepicker) {

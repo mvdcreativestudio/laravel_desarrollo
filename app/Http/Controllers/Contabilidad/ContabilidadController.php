@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Movimientos;
+namespace App\Http\Controllers\contabilidad;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Movimientos\Movimiento;
-use App\Models\Movimientos\Usuario;
+use App\Models\Contabilidad\Contabilidad;
+use App\Models\Contabilidad\Usuario;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 
-class MovimientosController extends Controller
+class ContabilidadController extends Controller
 
 {
-    // TODOS LOS MOVIMIENTOS
+    // TODOS LOS contabilidad
     public function transactions()
     {
-        $movimientos = Movimiento::orderBy('id', 'desc')->get();
+        $contabilidad = Contabilidad::orderBy('id', 'desc')->get();
         $usuariosCollection = Usuario::select('id', 'nombre', 'apellido')->get();
         $usuarios = $usuariosCollection->pluck('nombreCompleto', 'id');
 
@@ -24,10 +24,10 @@ class MovimientosController extends Controller
             $usuarios[$usuario->id] = $usuario->nombre . ' ' . $usuario->apellido;
         }
 
-        return view('admin.movimientos.transactions', compact('movimientos', 'usuarios'));
+        return view('admin.contabilidad.transactions', compact('contabilidad', 'usuarios'));
     }
 
-    // AGREGAR MOVIMIENTO
+    // AGREGAR contabilidad
     public function agregar(Request $request, $accion)
     {
         // Obtener la lista de usuarios
@@ -46,35 +46,35 @@ class MovimientosController extends Controller
         $fechaVencimiento = $request->input('fecha_vencimiento');
         $estado = $request->input('estado');
 
-        // Insertar el nuevo movimiento en la base de datos "movimientos"
-        $movimiento = new Movimiento();
-        $movimiento->nombre_cliente = $nombreCliente;
-        $movimiento->concepto = $concepto;
-        $movimiento->monto = $monto;
-        $movimiento->tipo = $tipo;
-        $movimiento->fecha_vencimiento = $fechaVencimiento;
-        $movimiento->estado = $estado;
-        $movimiento->usuario_id = $usuarioId; // Asignar el ID del usuario al movimiento
+        // Insertar el nuevo contabilidad en la base de datos "contabilidad"
+        $contabilidad = new Contabilidad();
+        $contabilidad->nombre_cliente = $nombreCliente;
+        $contabilidad->concepto = $concepto;
+        $contabilidad->monto = $monto;
+        $contabilidad->tipo = $tipo;
+        $contabilidad->fecha_vencimiento = $fechaVencimiento;
+        $contabilidad->estado = $estado;
+        $contabilidad->usuario_id = $usuarioId; // Asignar el ID del usuario al contabilidad
 
         // Obtener la fecha actual
         $fechaActual = Carbon::now();
 
-        // Obtener la fecha de vencimiento del movimiento
-        $fechaVencimiento = Carbon::parse($movimiento->fecha_vencimiento);
+        // Obtener la fecha de vencimiento del contabilidad
+        $fechaVencimiento = Carbon::parse($contabilidad->fecha_vencimiento);
 
         // Obtener la diferencia en días entre la fecha de vencimiento y la fecha actual
         $diasRestantes = $fechaActual->diffInDays($fechaVencimiento, false);
 
         // Determinar el estado según los días restantes
         if ($diasRestantes >= 7) {
-            $movimiento->estado_vencimiento = 'Vigente';
+            $contabilidad->estado_vencimiento = 'Vigente';
         } elseif ($diasRestantes >= 0) {
-            $movimiento->estado_vencimiento = 'Por Vencer';
+            $contabilidad->estado_vencimiento = 'Por Vencer';
         } else {
-            $movimiento->estado_vencimiento = 'Vencida';
+            $contabilidad->estado_vencimiento = 'Vencida';
         }
 
-        $movimiento->save();
+        $contabilidad->save();
 
         $mensaje = ($tipo === 'cobro') ? 'Cobro' : 'Pago';
         return redirect()
@@ -85,10 +85,10 @@ class MovimientosController extends Controller
 
     public function editar(Request $request, $id)
     {
-    // Obtener el movimiento a editar
-    $movimiento = Movimiento::findOrFail($id);
+    // Obtener el contabilidad a editar
+    $contabilidad = Contabilidad::findOrFail($id);
 
-    return view('admin.movimientos.editar', compact('movimiento'));
+    return view('admin.contabilidad.editar', compact('contabilidad'));
     }
 
 
@@ -102,115 +102,115 @@ class MovimientosController extends Controller
         'tipo' => 'required',
     ]);
 
-    // Obtener el movimiento a actualizar
-    $movimiento = Movimiento::findOrFail($id);
+    // Obtener el contabilidad a actualizar
+    $contabilidad = Contabilidad::findOrFail($id);
 
-    // Actualizar los campos del movimiento con los datos del formulario
-    $movimiento->nombre_cliente = $request->input('nombre_cliente');
-    $movimiento->concepto = $request->input('concepto');
-    $movimiento->monto = $request->input('monto');
-    $movimiento->tipo = $request->input('tipo');
+    // Actualizar los campos del contabilidad con los datos del formulario
+    $contabilidad->nombre_cliente = $request->input('nombre_cliente');
+    $contabilidad->concepto = $request->input('concepto');
+    $contabilidad->monto = $request->input('monto');
+    $contabilidad->tipo = $request->input('tipo');
 
     // Guardar los cambios en la base de datos
-    $movimiento->save();
+    $contabilidad->save();
 
-    // Redirigir a la página de visualización del movimiento o a donde desees
-    return redirect()->route('admin.movimientos.index')->with('success', 'Movimiento actualizado exitosamente');
+    // Redirigir a la página de visualización del contabilidad o a donde desees
+    return redirect()->route('admin.contabilidad.index')->with('success', 'contabilidad actualizado exitosamente');
 
 
     }
 
     
-    // VER MOVIMIENTO
+    // VER contabilidad
     public function ver($id)
     {
-        $movimiento = Movimiento::findOrFail($id);
+        $contabilidad = Contabilidad::findOrFail($id);
         
-        return view('admin.movimientos.ver', compact('movimiento'));
+        return view('admin.contabilidad.ver', compact('contabilidad'));
     }
     
-    // ELIMINAR MOVIMIENTO
+    // ELIMINAR contabilidad
     public function eliminar($id)
     {
-        $movimiento = Movimiento::findOrFail($id);
-        $movimiento->delete();
+        $contabilidad = Contabilidad::findOrFail($id);
+        $contabilidad->delete();
 
-        return redirect()->back()->with('success', 'Movimiento eliminado exitosamente');
+        return redirect()->back()->with('success', 'contabilidad eliminado exitosamente');
     }
     
-    // DASHBOARD DE MOVIMIENTOS
+    // DASHBOARD DE contabilidad
     public function index()
     {
-        $movimientos = Movimiento::with('usuario')->orderBy('id', 'desc')->get();
+        $contabilidad = Contabilidad::with('usuario')->orderBy('id', 'desc')->get();
         $clienteCount = Usuario::where('tipo_usuario', 'cliente')->count();
         $proveedoresCount = Usuario::where('tipo_usuario', 'proveedor')->count();
 
-        $totalTransacciones = Movimiento::count();
+        $totalTransacciones = Contabilidad::count();
 
-        $cobradoHoy = Movimiento::where('tipo', 'cobro')
+        $cobradoHoy = Contabilidad::where('tipo', 'cobro')
             ->whereDate('created_at', now()->format('Y-m-d'))
             ->sum('monto');
 
-        $ingresosSemana = Movimiento::where('tipo', 'cobro')
+        $ingresosSemana = Contabilidad::where('tipo', 'cobro')
             ->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])
             ->sum('monto');
 
-        $ingresosMes = Movimiento::where('tipo', 'cobro')
+        $ingresosMes = Contabilidad::where('tipo', 'cobro')
             ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->sum('monto');
 
-        $ingresosAño = Movimiento::where('tipo', 'cobro')
+        $ingresosAño = Contabilidad::where('tipo', 'cobro')
             ->whereYear('created_at', now()->year)
             ->sum('monto');
 
-        $movimientosVigentes = Movimiento::where('estado_vencimiento', 'Vigente')
+        $contabilidadVigentes = Contabilidad::where('estado_vencimiento', 'Vigente')
         ->where('estado', 'Impago')
         ->count();
-        $movimientosPorVencer = Movimiento::where('estado_vencimiento', 'Por Vencer')
+        $contabilidadPorVencer = Contabilidad::where('estado_vencimiento', 'Por Vencer')
         ->where('estado', 'Impago')
         ->count();
-        $movimientosVencidos = Movimiento::where('estado_vencimiento', 'Vencida')
+        $contabilidadVencidos = Contabilidad::where('estado_vencimiento', 'Vencida')
             ->where('estado', 'Impago')
             ->count();
         
-            return view('admin.movimientos.index', compact('movimientos', 'clienteCount', 'proveedoresCount', 'totalTransacciones', 'cobradoHoy', 'ingresosSemana', 'ingresosMes', 'ingresosAño', 'movimientosVigentes', 'movimientosPorVencer', 'movimientosVencidos'));
+            return view('admin.contabilidad.index', compact('contabilidad', 'clienteCount', 'proveedoresCount', 'totalTransacciones', 'cobradoHoy', 'ingresosSemana', 'ingresosMes', 'ingresosAño', 'contabilidadVigentes', 'contabilidadPorVencer', 'contabilidadVencidos'));
         }
     
     // INGRESOS
     public function incomes()
     {
-        $movimientos = Movimiento::where('tipo', 'cobro')
+        $contabilidad = Contabilidad::where('tipo', 'cobro')
             ->orderBy('id', 'desc')
             ->get();
         
-        return view('admin.movimientos.incomes', compact('movimientos'));
+        return view('admin.contabilidad.incomes', compact('contabilidad'));
     }
 
     // TODOS LOS EGRESOS
     public function expenses()
     {
-        $movimientos = Movimiento::where('tipo', 'pago')
+        $contabilidad = Contabilidad::where('tipo', 'pago')
             ->orderBy('id', 'desc')
             ->get();
         
-        return view('admin.movimientos.expenses', compact('movimientos'));
+        return view('admin.contabilidad.expenses', compact('contabilidad'));
     }
 
-    // BUSCAR MOVIMIENTO
+    // BUSCAR contabilidad
     public function search(Request $request)
     {
     $searchText = $request->input('search');
 
-    // Realizar la búsqueda de movimientos según el texto de búsqueda
-    $movimientos = Movimiento::where('nombre_cliente', 'LIKE', "%{$searchText}%")
+    // Realizar la búsqueda de contabilidad según el texto de búsqueda
+    $contabilidad = Contabilidad::where('nombre_cliente', 'LIKE', "%{$searchText}%")
         ->orWhere('concepto', 'LIKE', "%{$searchText}%")
         ->orWhere('tipo', 'LIKE', "%{$searchText}%")
         ->orderBy('id', 'desc')
         ->get();
 
     // Renderizar las filas de la tabla como HTML
-    $html = View::make('admin.movimientos.table_rows', compact('movimientos'))->render();
+    $html = View::make('admin.contabilidad.table_rows', compact('contabilidad'))->render();
 
     // Retornar el HTML como respuesta AJAX
     return $html;
@@ -220,6 +220,6 @@ class MovimientosController extends Controller
 
     public function agregarUsuario()
     {
-        return view('admin.movimientos.agregar-usuario');
+        return view('admin.contabilidad.agregar-usuario');
     }
 }

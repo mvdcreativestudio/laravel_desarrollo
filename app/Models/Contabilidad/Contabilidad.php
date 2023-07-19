@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models\Movimientos;
+namespace App\Models\Contabilidad;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Movimiento extends Model
+class Contabilidad extends Model
 {
     protected $fillable = ['nombre_cliente', 'concepto', 'fecha_vencimiento', 'estado', 'monto', 'estado_vencimiento'];
-    protected $table = 'cashflow_movimientos';
+    protected $table = 'contabilidad';
 
     public function usuario()
     {
